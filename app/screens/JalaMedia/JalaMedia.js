@@ -1,7 +1,17 @@
 import {NativeBaseProvider} from 'native-base';
 import React, {useEffect, useRef, useState} from 'react';
-import {FlatList, StyleSheet, View, Modal, Dimensions, TouchableOpacity,Text} from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  Modal,
+  Dimensions,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
+import {getHargaUdang} from '../../utils/network/HargaUdang';
+import TabHargaUdang from './EachTabs/TabHargaUdang/TabHargaUdang';
 
 const JalaMedia = ({}) => {
   return (
@@ -11,7 +21,7 @@ const JalaMedia = ({}) => {
         tabs={[
           {
             title: 'Harga Udang',
-            // component: ,
+            component: true ? <TabHargaUdang /> : null,
           },
           {
             title: 'Kabar Udang',
@@ -31,16 +41,9 @@ export default JalaMedia;
 
 const TabsCustom = ({tabs}) => {
   const [active, setActive] = useState(0);
-
   return (
-    <View style={{flex: 1, backgroundColor: '#FFF'}}>
-      <View
-        style={{
-          flexDirection: 'row',
-          height: 64,
-          justifyContent: 'space-between',
-          backgroundColor: 'transparent',
-        }}>
+    <View style={styles.mainViewTabsCustom}>
+      <View style={styles.containerMapTabs}>
         {tabs.map((dt, i) => {
           let isActive = active == i;
           return (
@@ -48,33 +51,11 @@ const TabsCustom = ({tabs}) => {
               onPress={() => {
                 setActive(i);
               }}
+              key={i}
               activeOpacity={0.99}
-              style={[
-                {
-                  flex: 1,
-                  backgroundColor: 'transparent',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderBottomWidth: 5,
-                  borderBottomColor: 'transparent',
-                },
-                isActive ?  {
-                  borderBottomColor: '#1b77df',
-                } : {borderBottomColor: '#f6f6f6'},
-              ]}>
-              <View
-                style={{
-                  width: Dimensions.get('window').width / tabs?.length,
-                  alignItems: 'center',
-                  flexDirection: 'column',
-                }}>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: isActive ? '#1e79df' : '#7e7e7e',
-                    marginTop: 6,
-                    fontWeight: isActive ? '800' : '600'
-                  }}>
+              style={styles.containerHeaderEachTabs(isActive)}>
+              <View style={styles.containerTitleEachTabs(tabs)}>
+                <Text style={styles.textTitleEachTabs(isActive)}>
                   {dt?.title}
                 </Text>
               </View>
@@ -82,22 +63,7 @@ const TabsCustom = ({tabs}) => {
           );
         })}
       </View>
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          borderColor: '#0000001F',
-          elevation: 4,
-          shadowColor: '#000000',
-          shadowOffset: {
-            width: 0,
-            height: 1,
-          },
-          shadowOpacity: 0.12,
-          shadowRadius: 4,
-        }}
-      />
-
+      <View style={styles.containerViewTabsComponent} />
       {tabs[active]?.component}
     </View>
   );
@@ -109,4 +75,54 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingBottom: 20,
   },
+  mainViewTabsCustom: {flex: 1, backgroundColor: '#FFF'},
+  containerMapTabs: {
+    flexDirection: 'row',
+    height: 64,
+    justifyContent: 'space-between',
+    backgroundColor: 'transparent',
+  },
+  containerViewTabsComponent: {
+    height: 1,
+    width: '100%',
+    borderColor: '#0000001F',
+    elevation: 4,
+    shadowColor: '#000000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 4,
+  },
+  containerHeaderEachTabs: isActive => [
+    {
+      flex: 1,
+      backgroundColor: 'transparent',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderBottomWidth: 5,
+      borderBottomColor: 'transparent',
+    },
+    isActive
+      ? {
+          borderBottomColor: '#1b77df',
+        }
+      : {borderBottomColor: '#f6f6f6'},
+  ],
+  containerTitleEachTabs: tabs => [
+    {
+      width: Dimensions.get('window').width / tabs?.length,
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+  ],
+  textTitleEachTabs: isActive => [
+    {
+      fontSize: 14,
+      color: isActive ? '#1e79df' : '#7e7e7e',
+      marginTop: 6,
+      fontWeight: isActive ? '800' : '600',
+    },
+  ],
 });
