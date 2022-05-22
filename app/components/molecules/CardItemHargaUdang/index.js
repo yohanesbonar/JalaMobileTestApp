@@ -14,6 +14,7 @@ import {
   getSize,
   uppercaseEachText,
 } from '../../../utils/common';
+import CardItemBadgeVerif from '../../atoms/CardItemBadgeVerif';
 
 const CardItemHargaUdang = ({
   supplierName,
@@ -45,12 +46,7 @@ const CardItemHargaUdang = ({
           </Text>
         </View>
         <View>
-          <View
-            style={{backgroundColor: '#fff8e7', padding: 2, borderRadius: 8}}>
-            <Text style={styles.textVerified(verified)}>
-              {verified ? 'Terverifikasi' : 'Belum Terverifikasi'}
-            </Text>
-          </View>
+          <CardItemBadgeVerif verified={verified} />
         </View>
       </View>
       <Text style={styles.dateText}>{formatDate(date)}</Text>
@@ -70,9 +66,9 @@ const CardItemHargaUdang = ({
             <Text style={styles.textMoneyIDR}>
               {getMoney(data, size, 'IDR')}
             </Text>
-          ) : (<Text style={styles.textMoneyIDR}>
-             -
-            </Text>)}
+          ) : (
+            <Text style={styles.textMoneyIDR}>-</Text>
+          )}
         </View>
         <View style={{justifyContent: 'center'}}>
           <TouchableOpacity
@@ -140,7 +136,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   textRegency: {
-      marginTop: 3,
+    marginTop: 3,
     color: '#454646',
     fontSize: 16,
     lineHeight: 18,
@@ -170,4 +166,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   containerSeeDetailText: {color: '#FFF', fontSize: 16, fontWeight: '600'},
+  containerBadgeVerified: (verified) => [{
+    backgroundColor: verified ? '#fff8e7' : '#e5e5e5',
+    paddingHorizontal: 8, paddingVertical: 5,
+    borderRadius: 8,
+    flexDirection: 'row',
+  }]
 });
