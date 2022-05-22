@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   textRegency: {
+      marginTop: 3,
     color: '#454646',
     fontSize: 16,
     lineHeight: 18,
