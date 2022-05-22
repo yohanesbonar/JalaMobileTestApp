@@ -1,0 +1,112 @@
+import {NativeBaseProvider} from 'native-base';
+import React, {useEffect, useRef, useState} from 'react';
+import {FlatList, StyleSheet, View, Modal, Dimensions, TouchableOpacity,Text} from 'react-native';
+import HeaderToolbar from '../../components/molecules/HeaderToolbar';
+
+const JalaMedia = ({}) => {
+  return (
+    <NativeBaseProvider>
+      <HeaderToolbar title={'Jala Media'} onPressBack={() => console.log()} />
+      <TabsCustom
+        tabs={[
+          {
+            title: 'Harga Udang',
+            // component: ,
+          },
+          {
+            title: 'Kabar Udang',
+            // component: ,
+          },
+          {
+            title: 'Penyakit',
+            // component: ,
+          },
+        ]}
+      />
+    </NativeBaseProvider>
+  );
+};
+
+export default JalaMedia;
+
+const TabsCustom = ({tabs}) => {
+  const [active, setActive] = useState(0);
+
+  return (
+    <View style={{flex: 1, backgroundColor: '#FFF'}}>
+      <View
+        style={{
+          flexDirection: 'row',
+          height: 64,
+          justifyContent: 'space-between',
+          backgroundColor: 'transparent',
+        }}>
+        {tabs.map((dt, i) => {
+          let isActive = active == i;
+          return (
+            <TouchableOpacity
+              onPress={() => {
+                setActive(i);
+              }}
+              activeOpacity={0.99}
+              style={[
+                {
+                  flex: 1,
+                  backgroundColor: 'transparent',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderBottomWidth: 5,
+                  borderBottomColor: 'transparent',
+                },
+                isActive ?  {
+                  borderBottomColor: '#1b77df',
+                } : {borderBottomColor: '#f6f6f6'},
+              ]}>
+              <View
+                style={{
+                  width: Dimensions.get('window').width / tabs?.length,
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: isActive ? '#1e79df' : '#7e7e7e',
+                    marginTop: 6,
+                    fontWeight: isActive ? '800' : '600'
+                  }}>
+                  {dt?.title}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          borderColor: '#0000001F',
+          elevation: 4,
+          shadowColor: '#000000',
+          shadowOffset: {
+            width: 0,
+            height: 1,
+          },
+          shadowOpacity: 0.12,
+          shadowRadius: 4,
+        }}
+      />
+
+      {tabs[active]?.component}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: '#f4faf8',
+    flex: 1,
+    paddingBottom: 20,
+  },
+});
