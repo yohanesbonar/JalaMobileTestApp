@@ -118,7 +118,7 @@ const TabHargaUdang = ({navigation}) => {
   const onRefreshData = () => {
     setData([]);
     setPage(1);
-    setIsFetching(true);
+    setIsFetching(false);
     setIsEmptyData(false);
     setIsRefresh(true);
   }
