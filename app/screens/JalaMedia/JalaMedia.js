@@ -12,6 +12,7 @@ import {
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import {getHargaUdang} from '../../utils/network/HargaUdang';
 import TabHargaUdang from './EachTabs/TabHargaUdang/TabHargaUdang';
+import TabKabarUdang from './EachTabs/TabKabarUdang/TabKabarUdang';
 
 const JalaMedia = ({navigation}) => {
   return (
@@ -25,7 +26,7 @@ const JalaMedia = ({navigation}) => {
           },
           {
             title: 'Kabar Udang',
-            // component: ,
+            component: true ? <TabKabarUdang navigation={navigation} /> : null,
           },
           {
             title: 'Penyakit',
