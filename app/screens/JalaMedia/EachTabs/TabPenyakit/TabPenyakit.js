@@ -1,7 +1,7 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
 import React, {Fragment, useEffect, useState} from 'react';
 import {FlatList, Text, StyleSheet, Image} from 'react-native';
-import {getPenyakit} from '../../../../utils/network/HargaUdang';
+import {getPenyakit} from '../../../../utils/network/Penyakit';
 import _ from 'lodash';
 import CardItemPost from '../../../../components/molecules/CardItemPost';
 
