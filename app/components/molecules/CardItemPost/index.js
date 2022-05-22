@@ -11,13 +11,13 @@ import {
 } from 'react-native';
 import {formatDate, shareLink} from '../../../utils/common';
 
-const CardItemKabarUdang = ({image, title, desc, data, date, id}) => {
+const CardItemPost = ({image, title, desc, data, date, id, onPress}) => {
   const onPressButtonShare = () => {
     let url = 'https://app.jala.tech/posts/' + id;
     shareLink(url);
   };
   return (
-    <View style={styles.mainCardContainer}>
+    <TouchableOpacity style={styles.mainCardContainer} onPress={onPress}>
       <Image
         source={{uri: 'https://app.jala.tech/storage/' + image}}
         resizeMode="cover"
@@ -33,11 +33,11 @@ const CardItemKabarUdang = ({image, title, desc, data, date, id}) => {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
-export default CardItemKabarUdang;
+export default CardItemPost;
 
 const styles = StyleSheet.create({
   mainCardContainer: {

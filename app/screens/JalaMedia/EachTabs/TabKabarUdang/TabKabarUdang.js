@@ -1,13 +1,11 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
 import React, {Fragment, useEffect, useState} from 'react';
 import {FlatList, Text, StyleSheet, Image} from 'react-native';
-import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
 import {
-  getHargaUdang,
   getKabarUdang,
 } from '../../../../utils/network/HargaUdang';
 import _ from 'lodash';
-import CardItemKabarUdang from '../../../../components/molecules/CardItemKabarUdang';
+import CardItemPost from '../../../../components/molecules/CardItemPost';
 
 const TabKabarUdang = ({navigation}) => {
   const [page, setPage] = useState(1);
@@ -64,7 +62,7 @@ const TabKabarUdang = ({navigation}) => {
         {index == 0 && (
           <Text style={styles.textKabarTerbaru}>Kabar terbaru</Text>
         )}
-        <CardItemKabarUdang
+        <CardItemPost
           image={item.image}
           title={item.title}
           desc={item.meta_description}
