@@ -1,6 +1,6 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, {Fragment, useEffect, useState} from 'react';
-import {FlatList, Text, StyleSheet, Image} from 'react-native';
+import React, { useEffect, useState} from 'react';
+import {FlatList, Text, StyleSheet} from 'react-native';
 import {getPenyakit} from '../../../../utils/network/Penyakit';
 import _ from 'lodash';
 import CardItemPost from '../../../../components/molecules/CardItemPost';
@@ -51,9 +51,6 @@ const TabPenyakit = ({navigation}) => {
     }
   };
 
-  const goToDetail = item => {
-    navigation.navigate('DetailHargaUdang', {data: item});
-  };
   const _renderItem = ({item, index}) => {
     return (
       <View>
@@ -67,9 +64,21 @@ const TabPenyakit = ({navigation}) => {
           data={item}
           date={item.updated_at}
           id={item.id}
+          onPress={() => onPressDetailKabarUdang(item)}
         />
       </View>
     );
+  };
+
+  const onPressDetailKabarUdang = data => {
+    let shareUrl = 'https://app.jala.tech/diseases/' + data.id;
+    let urlWebview = 'https://app.jala.tech/web_view/diseases/' + data.id;
+    navigation.navigate('GeneralWebview', {
+      data: data,
+      urlWebview: urlWebview,
+      shareUrl: shareUrl,
+      title: 'Info Penyakit',
+    });
   };
 
   const handleLoadMore = () => {

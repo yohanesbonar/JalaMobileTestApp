@@ -1,5 +1,5 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {FlatList, Text, StyleSheet, Image} from 'react-native';
 import {getKabarUdang} from '../../../../utils/network/KabarUdang';
 import _ from 'lodash';
@@ -50,10 +50,7 @@ const TabKabarUdang = ({navigation}) => {
       console.log('Error getHargaUdang', error);
     }
   };
-
-  const goToDetail = item => {
-    navigation.navigate('DetailHargaUdang', {data: item});
-  };
+  
   const _renderItem = ({item, index}) => {
     return (
       <View>
@@ -67,9 +64,21 @@ const TabKabarUdang = ({navigation}) => {
           data={item}
           date={item.updated_at}
           id={item.id}
+          onPress={() => onPressDetailKabarUdang(item)}
         />
       </View>
     );
+  };
+
+  const onPressDetailKabarUdang = data => {
+    let shareUrl = 'https://app.jala.tech/posts/' + data.id;
+    let urlWebview = 'https://app.jala.tech/web_view/posts/' + data.id;
+    navigation.navigate('GeneralWebview', {
+      data: data,
+      urlWebview: urlWebview,
+      shareUrl: shareUrl,
+      title: 'Kabar Udang',
+    });
   };
 
   const handleLoadMore = () => {
