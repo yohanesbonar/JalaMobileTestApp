@@ -1,1 +1,1 @@
-export const BASE_URL = 'https://app.jala.tech/api/';
+export const BASE_URL = "https://app.jala.tech/";

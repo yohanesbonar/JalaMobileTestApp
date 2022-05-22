@@ -14,6 +14,7 @@ import {
   getSize,
   uppercaseEachText,
 } from '../../../utils/common';
+import Button from '../../atoms/Button';
 import CardItemBadgeVerif from '../../atoms/CardItemBadgeVerif';
 
 const CardItemHargaUdang = ({
@@ -71,11 +72,7 @@ const CardItemHargaUdang = ({
           )}
         </View>
         <View style={{justifyContent: 'center'}}>
-          <TouchableOpacity
-            style={styles.containerButtonDetail}
-            onPress={onPressDetail}>
-            <Text style={styles.containerSeeDetailText}>LIHAT DETAIL</Text>
-          </TouchableOpacity>
+          <Button title={'LIHAT DETAIL'} onPress={onPressDetail} />
         </View>
       </View>
     </View>
@@ -166,10 +163,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   containerSeeDetailText: {color: '#FFF', fontSize: 16, fontWeight: '600'},
-  containerBadgeVerified: (verified) => [{
-    backgroundColor: verified ? '#fff8e7' : '#e5e5e5',
-    paddingHorizontal: 8, paddingVertical: 5,
-    borderRadius: 8,
-    flexDirection: 'row',
-  }]
+  containerBadgeVerified: verified => [
+    {
+      backgroundColor: verified ? '#fff8e7' : '#e5e5e5',
+      paddingHorizontal: 8,
+      paddingVertical: 5,
+      borderRadius: 8,
+      flexDirection: 'row',
+    },
+  ],
 });

@@ -1,4 +1,4 @@
-import { ArrowBackIcon } from 'native-base';
+import {ArrowBackIcon, ShareIcon} from 'native-base';
 import React from 'react';
 import {
   SafeAreaView,
@@ -14,28 +14,35 @@ const HeaderToolbar = ({
   leftTitle,
   titleButtonRight,
   onPressButtonRight,
+  typeRightButton,
 }) => {
   return (
     <SafeAreaView style={{backgroundColor: '#1b77df', zIndex: 1}}>
-        <View
-          style={styles.containerLeftSide(
-            onPressBack,
-            leftTitle,
-            titleButtonRight,
-          )}>
-          {onPressBack && (
-            <TouchableOpacity onPress={onPressBack}>
-              <ArrowBackIcon style={styles.containerArrowButtonBack} />
-            </TouchableOpacity>
-          )}
+      <View
+        style={styles.containerLeftSide(
+          onPressBack,
+          leftTitle,
+          titleButtonRight,
+        )}>
+        {onPressBack && (
+          <TouchableOpacity onPress={onPressBack}>
+            <ArrowBackIcon style={styles.containerArrowButtonBack} />
+          </TouchableOpacity>
+        )}
 
-          <Text style={styles.containerTextTitle}>{title}</Text>
-          {onPressButtonRight && (
-            <TouchableOpacity onPress={onPressButtonRight}>
+        <Text style={styles.containerTextTitle}>{title}</Text>
+        {onPressButtonRight && (
+          <TouchableOpacity
+            onPress={onPressButtonRight}
+            style={{right: 0, alignContent: 'flex-end'}}>
+            {typeRightButton == 'share' ? (
+              <ShareIcon style={styles.containerButtonRight} />
+            ) : (
               <Text style={styles.buttonRight}>{titleButtonRight}</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+            )}
+          </TouchableOpacity>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -55,10 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFF',
     fontWeight: '600',
-    textAlign: 'center',
+    textAlign: 'left',
     paddingBottom: 10,
     paddingTop: 6,
     textAlignVertical: 'center',
+    flex: 1,
   },
   buttonRight: {
     fontSize: 16,
@@ -78,4 +86,12 @@ const styles = StyleSheet.create({
       justifyContent: titleButtonRight ? 'space-between' : null,
     },
   ],
+  containerButtonRight: {
+    height: 28,
+    width: 28,
+    color: '#FFF',
+    marginRight: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 5,
+  },
 });

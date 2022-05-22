@@ -1,3 +1,5 @@
+import {Linking, Share} from 'react-native';
+
 export const formatDate = date => {
   let temp = date.split(' ')[0].split('-').reverse(),
     newFormat;
@@ -108,5 +110,25 @@ export const getMoney = (data, size, prefix) => {
   } else {
     let result = formatIDR(tempfee, prefix);
     return result;
+  }
+};
+
+export const phoneCallWihtNumber = number => {
+  return Linking.openURL(`tel:${number}`);
+};
+
+export const shareLink = async message => {
+  try {
+    const result = await Share.share({
+      message: message,
+    });
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+      } else {
+      }
+    } else if (result.action === Share.dismissedAction) {
+    }
+  } catch (error) {
+    alert(error.message);
   }
 };
