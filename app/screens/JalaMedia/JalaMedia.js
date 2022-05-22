@@ -13,7 +13,7 @@ import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import {getHargaUdang} from '../../utils/network/HargaUdang';
 import TabHargaUdang from './EachTabs/TabHargaUdang/TabHargaUdang';
 
-const JalaMedia = ({}) => {
+const JalaMedia = ({navigation}) => {
   return (
     <NativeBaseProvider>
       <HeaderToolbar title={'Jala Media'} onPressBack={() => console.log()} />
@@ -21,7 +21,7 @@ const JalaMedia = ({}) => {
         tabs={[
           {
             title: 'Harga Udang',
-            component: true ? <TabHargaUdang /> : null,
+            component: true ? <TabHargaUdang navigation={navigation} /> : null,
           },
           {
             title: 'Kabar Udang',

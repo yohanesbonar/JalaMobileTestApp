@@ -1,10 +1,10 @@
-import {View} from 'native-base';
+import {View, Toast} from 'native-base';
 import React, {Fragment, useEffect, useState} from 'react';
 import {FlatList, Text} from 'react-native';
 import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
 import {getHargaUdang} from '../../../../utils/network/HargaUdang';
 
-const TabHargaUdang = () => {
+const TabHargaUdang = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
 
@@ -22,10 +22,17 @@ const TabHargaUdang = () => {
         setData(response.data);
       }
     } catch (error) {
+      Toast.show({
+        title: 'Something went wrong!!' + error,
+        duration: 1500,
+      });
       console.log('Error getHargaUdang', error);
     }
   };
 
+  const goToDetail = item => {
+    navigation.navigate('DetailHargaUdang', {data: item});
+  };
   const _renderItem = ({item, index}) => {
     return (
       <CardItemHargaUdang
@@ -39,6 +46,7 @@ const TabHargaUdang = () => {
         regencyName={item.region.regency_name}
         provinceName={item.region.province_name}
         size={50}
+        onPressDetail={() => goToDetail(item)}
       />
     );
   };

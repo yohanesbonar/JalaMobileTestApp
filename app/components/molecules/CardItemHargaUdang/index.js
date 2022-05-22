@@ -25,6 +25,7 @@ const CardItemHargaUdang = ({
   idr,
   avatarId,
   data,
+  onPressDetail,
 }) => {
   return (
     <View style={styles.mainCardContainer}>
@@ -62,10 +63,23 @@ const CardItemHargaUdang = ({
       {regencyName != null && (
         <Text style={styles.textRegency}>{uppercaseEachText(regencyName)}</Text>
       )}
-      {size != null && <Text style={styles.sizeText}>size {size}</Text>}
-      {getMoney(data, size, 'IDR') != null && (
-        <Text style={styles.textMoneyIDR}>{getMoney(data, size, 'IDR')}</Text>
-      )}
+      <View style={{flexDirection: 'row'}}>
+        <View style={{flex: 1}}>
+          {size != null && <Text style={styles.sizeText}>size {size}</Text>}
+          {getMoney(data, size, 'IDR') != null && (
+            <Text style={styles.textMoneyIDR}>
+              {getMoney(data, size, 'IDR')}
+            </Text>
+          )}
+        </View>
+        <View style={{justifyContent: 'center'}}>
+          <TouchableOpacity
+            style={styles.containerButtonDetail}
+            onPress={onPressDetail}>
+            <Text style={styles.containerSeeDetailText}>LIHAT DETAIL</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   );
 };
@@ -145,4 +159,12 @@ const styles = StyleSheet.create({
     letterSpacing: 0.14,
     fontWeight: '700',
   },
+  containerButtonDetail: {
+    marginTop: 12,
+    backgroundColor: '#1b77df',
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+  },
+  containerSeeDetailText: {color: '#FFF', fontSize: 16, fontWeight: '600'},
 });

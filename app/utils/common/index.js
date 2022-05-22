@@ -81,7 +81,6 @@ export const getSize = (data, size) => {
 };
 
 export const formatIDR = (fee, prefix) => {
-  console.log('fee', fee);
   if (fee != null) {
     fee = fee.toString();
     var number_string = fee.replace(/[^,\d]/g, '').toString(),
