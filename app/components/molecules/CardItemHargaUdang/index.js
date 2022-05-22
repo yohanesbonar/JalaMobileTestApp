@@ -66,11 +66,13 @@ const CardItemHargaUdang = ({
       <View style={{flexDirection: 'row'}}>
         <View style={{flex: 1}}>
           {size != null && <Text style={styles.sizeText}>size {size}</Text>}
-          {getMoney(data, size, 'IDR') != null && (
+          {getMoney(data, size, 'IDR') != null ? (
             <Text style={styles.textMoneyIDR}>
               {getMoney(data, size, 'IDR')}
             </Text>
-          )}
+          ) : (<Text style={styles.textMoneyIDR}>
+             -
+            </Text>)}
         </View>
         <View style={{justifyContent: 'center'}}>
           <TouchableOpacity
