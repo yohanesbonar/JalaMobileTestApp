@@ -6,6 +6,7 @@ import CardItemBadgeVerif from '../../components/atoms/CardItemBadgeVerif';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import {
   formatDate,
+  getMoney,
   phoneCallWihtNumber,
   shareLink,
   uppercaseEachText,
@@ -22,6 +23,122 @@ const DetailHargaUdang = ({route, navigation}) => {
   const onPressButtonRight = () => {
     let url = 'https://app.jala.tech/shrimp_prices/' + data.id;
     shareLink(url);
+  };
+
+  const renderDaftarHarga = () => {
+    return (
+      <View>
+        <Text style={styles.textDaftarHarga}>Daftar Harga</Text>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 20</Text>
+          <Text style={styles.textMoney}>
+            {data.size_20 ? getMoney(data, 20, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 30</Text>
+          <Text style={styles.textMoney}>
+            {data.size_30 ? getMoney(data, 30, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 40</Text>
+          <Text style={styles.textMoney}>
+            {data.size_40 ? getMoney(data, 40, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 50</Text>
+          <Text style={styles.textMoney}>
+            {data.size_50 ? getMoney(data, 50, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 60</Text>
+          <Text style={styles.textMoney}>
+            {data.size_60 ? getMoney(data, 60, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 70</Text>
+          <Text style={styles.textMoney}>
+            {data.size_70 ? getMoney(data, 70, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 80</Text>
+          <Text style={styles.textMoney}>
+            {data.size_80 ? getMoney(data, 80, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 90</Text>
+          <Text style={styles.textMoney}>
+            {data.size_90 ? getMoney(data, 90, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 100</Text>
+          <Text style={styles.textMoney}>
+            {data.size_100 ? getMoney(data, 100, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 120</Text>
+          <Text style={styles.textMoney}>
+            {data.size_120 ? getMoney(data, 120, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 130</Text>
+          <Text style={styles.textMoney}>
+            {data.size_130 ? getMoney(data, 130, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 140</Text>
+          <Text style={styles.textMoney}>
+            {data.size_140 ? getMoney(data, 140, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 150</Text>
+          <Text style={styles.textMoney}>
+            {data.size_150 ? getMoney(data, 150, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 160</Text>
+          <Text style={styles.textMoney}>
+            {data.size_160 ? getMoney(data, 160, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 170</Text>
+          <Text style={styles.textMoney}>
+            {data.size_170 ? getMoney(data, 170, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 180</Text>
+          <Text style={styles.textMoney}>
+            {data.size_180 ? getMoney(data, 180, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 190</Text>
+          <Text style={styles.textMoney}>
+            {data.size_190 ? getMoney(data, 190, 'Rp') : '-'}
+          </Text>
+        </View>
+        <View style={styles.eachPrice}>
+          <Text style={styles.textSize}>Size 200</Text>
+          <Text style={styles.textMoney}>
+            {data.size_200 ? getMoney(data, 200, 'Rp') : '-'}
+          </Text>
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -80,6 +197,13 @@ const DetailHargaUdang = ({route, navigation}) => {
                 onPress={() => onPressHubungi(data.creator.phone)}
               />
             </View>
+          </View>
+          {renderDaftarHarga()}
+          <View style={styles.containerNotes}>
+            <Text style={styles.textTitleNotes}>Catatan</Text>
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipscing elit ut liquam
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -150,5 +274,38 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     letterSpacing: 0.14,
     fontWeight: '600',
+  },
+  textDaftarHarga: {
+    color: '#000',
+    marginTop: 10,
+    fontSize: 16,
+    lineHeight: 18,
+    letterSpacing: 0.14,
+    fontWeight: '600',
+  },
+  textSize: {
+    color: '#000',
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.14,
+    marginRight: 24,
+    width: 70,
+  },
+  textMoney: {
+    color: '#000',
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.14,
+  },
+  eachPrice: {flexDirection: 'row', marginTop: 10},
+  containerNotes: {marginTop: 10, marginBottom: 60},
+  textTitleNotes: {
+    color: '#454646',
+    fontSize: 14,
+    lineHeight: 18,
+    letterSpacing: 0.14,
+    marginTop: 10,
+    fontWeight: '600',
+    marginBottom: 10,
   },
 });

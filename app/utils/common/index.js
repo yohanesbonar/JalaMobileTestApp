@@ -52,6 +52,8 @@ export const getSize = (data, size) => {
   } else if (size == 50) {
     return data.size_50;
   } else if (size == 60) {
+    return data.size_60;
+  } else if (size == 70) {
     return data.size_70;
   } else if (size == 80) {
     return data.size_80;
