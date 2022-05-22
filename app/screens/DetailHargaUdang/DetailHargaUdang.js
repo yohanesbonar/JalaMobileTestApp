@@ -191,7 +191,7 @@ const DetailHargaUdang = ({route, navigation}) => {
               <Text style={styles.textKontak}>Kontak</Text>
               <Text style={styles.textNoHP}>{data.creator.phone}</Text>
             </View>
-            <View>
+            <View style={styles.containerButtonHubungi}>
               <Button
                 title={'Hubungi'}
                 onPress={() => onPressHubungi(data.creator.phone)}
@@ -274,6 +274,7 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     letterSpacing: 0.14,
     fontWeight: '600',
+    marginTop: 4,
   },
   textDaftarHarga: {
     color: '#000',
@@ -308,4 +309,5 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 10,
   },
+  containerButtonHubungi: {justifyContent: 'center', marginTop: 4},
 });
