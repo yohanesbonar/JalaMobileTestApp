@@ -63,9 +63,9 @@ const TabHargaUdang = ({navigation}) => {
         <CardItemHargaUdang
           data={item}
           supplierName={
-            item.creator.email_verified ? item.creator.name : item.creator.buyer
+            item.creator.name
           }
-          verified={item.creator.email_verified ? true : false}
+          verified={item.creator.buyer ? true : false}
           date={item.updated_at}
           avatarId={item.creator.avatar}
           regencyName={item.region.regency_name}

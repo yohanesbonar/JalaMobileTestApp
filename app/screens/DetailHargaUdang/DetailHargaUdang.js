@@ -167,7 +167,7 @@ const DetailHargaUdang = ({route, navigation}) => {
         <View style={{padding: 16}}>
           <View style={styles.containerDateAndBadgeVerif}>
             <Text style={styles.dateText}>{formatDate(data.updated_at)}</Text>
-            <CardItemBadgeVerif verified={data.creator.email_verified} />
+            <CardItemBadgeVerif verified={data.creator.buyer} />
           </View>
           <View style={styles.containerImageAndNameSupplier}>
             <Image
@@ -179,11 +179,7 @@ const DetailHargaUdang = ({route, navigation}) => {
             />
             <View style={{marginHorizontal: 16, flex: 1}}>
               <Text style={styles.textSupplier}>Supplier</Text>
-              <Text style={styles.textSupplierName}>
-                {data.creator.email_verified
-                  ? data.creator.name
-                  : data.creator.buyer}
-              </Text>
+              <Text style={styles.textSupplierName}>{data.creator.name}</Text>
             </View>
           </View>
           <View style={{flexDirection: 'row'}}>
