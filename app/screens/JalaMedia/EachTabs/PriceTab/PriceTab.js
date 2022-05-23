@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   ],
   mainContainerButtonFilterAddress: {
     position: 'absolute',
-    bottom: 28,
+    bottom: 20,
     right: 32,
     left: 32,
     flexDirection: 'row',
