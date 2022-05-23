@@ -16,9 +16,9 @@ import DiseaseTab from './EachTabs/DiseaseTab/DiseaseTab';
 
 const JalaMedia = ({navigation}) => {
   useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => {
-      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton);
     };
   }, []);
 
@@ -26,10 +26,12 @@ const JalaMedia = ({navigation}) => {
     BackHandler.exitApp();
   };
 
-
   return (
     <NativeBaseProvider>
-      <HeaderToolbar title={'Jala Media'} onPressBack={() => handleBackButton()} />
+      <HeaderToolbar
+        title={'Jala Media'}
+        onPressBack={() => handleBackButton()}
+      />
       <TabsCustom
         tabs={[
           {
@@ -133,9 +135,11 @@ const styles = StyleSheet.create({
   textTitleEachTabs: isActive => [
     {
       fontSize: 14,
-      color: isActive ? '#1e79df' : '#7e7e7e',
+      color: isActive ? '#1B77DF' : '#737373',
       marginTop: 6,
-      fontWeight: isActive ? '800' : '600',
+      fontFamily: 'Lato-Bold',
+      lineHeight: 20,
+      letterSpacing: 0.5,
     },
   ],
 });

@@ -7,9 +7,9 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
 import {getListPrice} from '../../../../utils/network/Price';
 import _ from 'lodash';
+import CardItemPrice from '../../../../components/molecules/CardItemPrice';
 
 const PriceTab = ({navigation}) => {
   const [page, setPage] = useState(1);
@@ -66,7 +66,7 @@ const PriceTab = ({navigation}) => {
         {index == 0 && (
           <Text style={styles.textHargaTerbaru}>Harga terbaru</Text>
         )}
-        <CardItemHargaUdang
+        <CardItemPrice
           data={item}
           supplierName={item.creator.name}
           verified={item.creator.buyer ? true : false}
@@ -180,11 +180,13 @@ export default PriceTab;
 
 const styles = StyleSheet.create({
   textHargaTerbaru: {
-    color: '#1971d4',
+    color: '#004492',
     fontSize: 18,
     textAlign: 'center',
     marginTop: 10,
-    fontWeight: '600',
+    fontFamily: 'Lato-Bold',
+    lineHeight: 25,
+    letterSpacing: 0.5,
     marginBottom: -8,
   },
   containerItemFooter: isFetching => [
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
   },
   containerButtonFilterSize: {
-    backgroundColor: '#014492',
+    backgroundColor: '#004492',
     flex: 0.4,
     paddingVertical: 6,
     paddingLeft: 24,
@@ -212,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   containerButtonFilterAddress: {
-    backgroundColor: '#1b77df',
+    backgroundColor: '#1B77DF',
     flex: 0.6,
     paddingVertical: 6,
     paddingLeft: 20,
@@ -221,14 +223,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  textDescSize: {fontSize: 14, color: '#FFF'},
-  textValueSize: {fontSize: 14, color: '#FFF', fontWeight: '700'},
+  textDescSize: {
+    fontSize: 12,
+    color: '#FFFFFF',
+    lineHeight: 16,
+    fontFamily: 'Lato-Regular',
+  },
+  textValueSize: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    lineHeight: 20,
+    fontFamily: 'Lato-Bold',
+    letterSpacing: 0.5,
+  },
   textDescCountry: {
     color: '#FFF',
     textAlignVertical: 'center',
-    marginTop: 2,
+    fontFamily: 'Lato-Bold',
     fontSize: 16,
-    fontWeight: '600',
+    lineHeight: 24,
+    letterSpacing: 0.5,
     marginLeft: 6,
   },
 });

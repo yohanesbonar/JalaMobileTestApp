@@ -24,11 +24,17 @@ const styles = StyleSheet.create({
   containerButtonDetail: size => [
     {
       marginTop: 12,
-      backgroundColor: '#1b77df',
-      paddingVertical: 8,
-      paddingHorizontal: 10,
+      backgroundColor: '#1B77DF',
+      paddingVertical: 6,
+      paddingHorizontal: 16,
       borderRadius: 8,
     },
   ],
-  containerSeeDetailText: {color: '#FFF', fontSize: 16, fontWeight: '600'},
+  containerSeeDetailText: {
+    color: '#FFFFFF',
+    fontFamily: 'Lato-Bold',
+    fontSize: 14,
+    lineHeight: 20,
+    letterSpacing: 0.5,
+  },
 });

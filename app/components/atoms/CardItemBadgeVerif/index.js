@@ -19,7 +19,7 @@ const CardItemBadgeVerif = ({verified}) => {
       )}
 
       <Text style={styles.textVerified(verified)}>
-        {verified ? 'Terverifikasi' : 'Belum Terverifikasi'}
+        {verified ? 'Terverifikasi' : 'belum terverifikasi'}
       </Text>
     </View>
   );
@@ -29,14 +29,14 @@ export default CardItemBadgeVerif;
 
 const styles = StyleSheet.create({
   textVerified: verified => [
-    {textAlign: 'right', color: verified ? '#575755' : '#575755'},
+    {textAlign: 'right', color: verified ? '#454646' : '#454646'},
   ],
   containerBadgeVerified: verified => [
     {
-      backgroundColor: verified ? '#fff8e7' : '#e5e5e5',
-      paddingHorizontal: 8,
+      backgroundColor: verified ? '#FFF8E7' : '#E5E5E5',
+      paddingHorizontal: 6,
       paddingVertical: 5,
-      borderRadius: 8,
+      borderRadius: 27.5,
       flexDirection: 'row',
     },
   ],

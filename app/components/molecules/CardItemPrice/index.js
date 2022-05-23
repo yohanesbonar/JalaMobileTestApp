@@ -17,7 +17,7 @@ import {
 import Button from '../../atoms/Button';
 import CardItemBadgeVerif from '../../atoms/CardItemBadgeVerif';
 
-const CardItemHargaUdang = ({
+const CardItemPrice = ({
   supplierName,
   verified,
   date,
@@ -79,7 +79,7 @@ const CardItemHargaUdang = ({
   );
 };
 
-export default CardItemHargaUdang;
+export default CardItemPrice;
 
 const styles = StyleSheet.create({
   mainCardContainer: {
@@ -101,31 +101,33 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
   },
   textSupplier: {
-    color: '#a6b8de',
-    fontSize: 14,
-    lineHeight: 18,
-    letterSpacing: 0.14,
+    color: '#859ED1',
+    fontSize: 12,
+    fontFamily: 'Lato-Regular',
+    lineHeight: 16,
+    letterSpacing: 0.3,
   },
   textSupplierName: {
     color: '#454646',
     fontSize: 14,
-    lineHeight: 18,
-    letterSpacing: 0.14,
-    fontWeight: '400',
+    lineHeight: 20,
+    fontFamily: 'Lato-Regular',
   },
   textVerified: verified => [
     {textAlign: 'right', color: verified ? '#575755' : '#575755'},
   ],
   avatarStyle: {width: 38, height: 38, borderRadius: 20, alignSelf: 'center'},
   dateText: {
-    color: '#a6b8de',
-    fontSize: 14,
-    lineHeight: 18,
-    letterSpacing: 0.14,
+    color: '#859ED1',
+    fontSize: 12,
+    fontFamily: 'Lato-Regular',
+    lineHeight: 16,
+    letterSpacing: 0.3,
   },
   containerViewTop: {flexDirection: 'row', flex: 1, marginBottom: 10},
   textProvince: {
     color: '#454646',
+    fontFamily: 'Lato-Regular',
     fontSize: 14,
     lineHeight: 16,
     letterSpacing: 0.14,
@@ -133,27 +135,26 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   textRegency: {
-    marginTop: 3,
     color: '#454646',
-    fontSize: 16,
-    lineHeight: 18,
-    letterSpacing: 0.14,
-    fontWeight: '700',
+    fontFamily: 'Lato-Bold',
+    fontSize: 18,
+    lineHeight: 24,
+    letterSpacing: 0.5,
   },
   sizeText: {
-    color: '#a6b8de',
-    fontSize: 14,
-    lineHeight: 18,
-    letterSpacing: 0.14,
-    marginTop: 6,
+    color: '#859ED1',
+    fontFamily: 'Lato-Regular',
+    fontSize: 12,
+    lineHeight: 16,
+    letterSpacing: 0.3,
+    marginTop: 4,
   },
   textMoneyIDR: {
-    marginTop: 2,
     color: '#454646',
-    fontSize: 20,
-    lineHeight: 22,
-    letterSpacing: 0.14,
-    fontWeight: '700',
+    fontSize: 22,
+    fontFamily: 'Lato-Black',
+    lineHeight: 28,
+    letterSpacing: 1,
   },
   containerButtonDetail: {
     marginTop: 12,
