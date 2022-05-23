@@ -244,8 +244,15 @@ const PriceTab = ({navigation}) => {
               <Text style={styles.textLeftHeaderBS}>
                 {typeBS == 'BSFilterSize' ? 'Size' : 'Kota/kabupaten'}
               </Text>
-              <TouchableOpacity onPress={() => closeModalize()}>
-                <Text style={styles.textRightHeaderBS}>Tutup</Text>
+              <TouchableOpacity
+                onPress={
+                  typeBS == 'BSFilterSize'
+                    ? () => closeModalize()
+                    : () => setRegion(null) + closeModalize()
+                }>
+                <Text style={styles.textRightHeaderBS}>
+                  {typeBS == 'BSFilterSize' ? 'Tutup' : 'Reset'}
+                </Text>
               </TouchableOpacity>
             </View>
             <View style={{backgroundColor: '#f1f5f9', height: 4}} />
