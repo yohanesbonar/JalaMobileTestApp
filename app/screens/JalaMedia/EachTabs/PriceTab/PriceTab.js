@@ -140,7 +140,7 @@ const PriceTab = ({navigation}) => {
         <TouchableOpacity style={styles.containerButtonFilterSize}>
           <Image
             source={require('../../../../assets/images/ic-scale-white.png')}
-            style={{width: 24, height: 24, padding: 8}}
+            style={{width: 16.49, height: 18, padding: 8}}
             resizeMode="cover"
           />
           <View style={{marginLeft: 12}}>
@@ -151,8 +151,8 @@ const PriceTab = ({navigation}) => {
         <TouchableOpacity style={styles.containerButtonFilterAddress}>
           <Image
             source={require('../../../../assets/images/ic-location-white.png')}
-            style={{width: 24, height: 24, padding: 8}}
-            resizeMode="cover"
+            style={{width: 12.52, height: 18, padding: 8}}
+            resizeMode="contain"
           />
           <Text style={styles.textDescCountry}>Indonesia</Text>
         </TouchableOpacity>
