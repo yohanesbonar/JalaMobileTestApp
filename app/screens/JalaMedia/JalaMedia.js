@@ -25,6 +25,8 @@ const JalaMedia = ({navigation}) => {
   const handleBackButton = () => {
     BackHandler.exitApp();
   };
+
+
   return (
     <NativeBaseProvider>
       <HeaderToolbar title={'Jala Media'} onPressBack={() => handleBackButton()} />

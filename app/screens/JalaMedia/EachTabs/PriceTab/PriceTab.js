@@ -1,8 +1,14 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
 import React, {Fragment, useEffect, useState} from 'react';
-import {FlatList, Text, StyleSheet} from 'react-native';
+import {
+  FlatList,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
-import { getListPrice} from '../../../../utils/network/Price';
+import {getListPrice} from '../../../../utils/network/Price';
 import _ from 'lodash';
 
 const PriceTab = ({navigation}) => {
@@ -128,17 +134,46 @@ const PriceTab = ({navigation}) => {
     }
   }, [isRefresh == true]);
 
+  const renderButtonFilterAddress = () => {
+    return (
+      <View style={styles.mainContainerButtonFilterAddress}>
+        <TouchableOpacity style={styles.containerButtonFilterSize}>
+          <Image
+            source={require('../../../../assets/images/ic-scale-white.png')}
+            style={{width: 24, height: 24, padding: 8}}
+            resizeMode="cover"
+          />
+          <View style={{marginLeft: 12}}>
+            <Text style={styles.textDescSize}>Size</Text>
+            <Text style={styles.textValueSize}>100</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.containerButtonFilterAddress}>
+          <Image
+            source={require('../../../../assets/images/ic-location-white.png')}
+            style={{width: 24, height: 24, padding: 8}}
+            resizeMode="cover"
+          />
+          <Text style={styles.textDescCountry}>Indonesia</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+
   return (
-    <FlatList
-      data={data}
-      renderItem={_renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      onEndReachedThreshold={0.5}
-      onEndReached={handleLoadMore}
-      ListFooterComponent={_renderItemFooter()}
-      onRefresh={() => onRefreshData()}
-      refreshing={false}
-    />
+    <View style={{flex: 1}}>
+      <FlatList
+        data={data}
+        renderItem={_renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        onEndReachedThreshold={0.5}
+        onEndReached={handleLoadMore}
+        ListFooterComponent={_renderItemFooter()}
+        onRefresh={() => onRefreshData()}
+        refreshing={false}
+      />
+      {renderButtonFilterAddress()}
+    </View>
   );
 };
 export default PriceTab;
@@ -158,4 +193,42 @@ const styles = StyleSheet.create({
       alignItems: isFetching ? null : 'center',
     },
   ],
+  mainContainerButtonFilterAddress: {
+    position: 'absolute',
+    bottom: 44,
+    right: 32,
+    left: 32,
+    flexDirection: 'row',
+    backgroundColor: '#FFF',
+  },
+  containerButtonFilterSize: {
+    backgroundColor: '#014492',
+    flex: 0.4,
+    paddingVertical: 6,
+    paddingLeft: 24,
+    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  containerButtonFilterAddress: {
+    backgroundColor: '#1b77df',
+    flex: 0.6,
+    paddingVertical: 6,
+    paddingLeft: 20,
+    borderBottomRightRadius: 30,
+    borderTopRightRadius: 30,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  textDescSize: {fontSize: 14, color: '#FFF'},
+  textValueSize: {fontSize: 14, color: '#FFF', fontWeight: '700'},
+  textDescCountry: {
+    color: '#FFF',
+    textAlignVertical: 'center',
+    marginTop: 2,
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 6,
+  },
 });
