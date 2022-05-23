@@ -1,7 +1,6 @@
 import {NativeBaseProvider} from 'native-base';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {
-  FlatList,
   StyleSheet,
   View,
   Modal,
@@ -10,10 +9,9 @@ import {
   Text,
 } from 'react-native';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
-import {getHargaUdang} from '../../utils/network/HargaUdang';
-import TabHargaUdang from './EachTabs/TabHargaUdang/TabHargaUdang';
-import TabKabarUdang from './EachTabs/TabKabarUdang/TabKabarUdang';
-import TabPenyakit from './EachTabs/TabPenyakit/TabPenyakit';
+import PriceTab from './EachTabs/PriceTab/PriceTab';
+import NewsTab from './EachTabs/NewsTab/NewsTab';
+import DiseaseTab from './EachTabs/DiseaseTab/DiseaseTab';
 
 const JalaMedia = ({navigation}) => {
   return (
@@ -23,15 +21,15 @@ const JalaMedia = ({navigation}) => {
         tabs={[
           {
             title: 'Harga Udang',
-            component: true ? <TabHargaUdang navigation={navigation} /> : null,
+            component: true ? <PriceTab navigation={navigation} /> : null,
           },
           {
             title: 'Kabar Udang',
-            component: true ? <TabKabarUdang navigation={navigation} /> : null,
+            component: true ? <NewsTab navigation={navigation} /> : null,
           },
           {
             title: 'Penyakit',
-            component: true ? <TabPenyakit navigation={navigation} /> : null,
+            component: true ? <DiseaseTab navigation={navigation} /> : null,
           },
         ]}
       />

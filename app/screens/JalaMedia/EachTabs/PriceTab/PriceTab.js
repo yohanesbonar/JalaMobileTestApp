@@ -1,11 +1,11 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, { useEffect, useState} from 'react';
-import {FlatList, Text, StyleSheet, Image} from 'react-native';
-import {getKabarUdang} from '../../../../utils/network/KabarUdang';
+import React, {Fragment, useEffect, useState} from 'react';
+import {FlatList, Text, StyleSheet} from 'react-native';
+import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
+import { getListPrice} from '../../../../utils/network/Price';
 import _ from 'lodash';
-import CardItemPost from '../../../../components/molecules/CardItemPost';
 
-const TabKabarUdang = ({navigation}) => {
+const PriceTab = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isEmptyData, setIsEmptyData] = useState(false);
@@ -23,7 +23,7 @@ const TabKabarUdang = ({navigation}) => {
     setIsRefresh(false);
     setIsFailed(false);
     try {
-      let response = await getKabarUdang(limit, page);
+      let response = await getListPrice(limit, page);
       console.log('response', response);
       let result = response.data;
       if (response) {
@@ -47,38 +47,32 @@ const TabKabarUdang = ({navigation}) => {
         title: 'Something went wrong!!' + error,
         duration: 1500,
       });
-      console.log('Error getHargaUdang', error);
+      console.log('Error getListPrice', error);
     }
   };
-  
+
+  const goToDetail = item => {
+    navigation.navigate('PriceDetail', {data: item});
+  };
   const _renderItem = ({item, index}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textKabarTerbaru}>Kabar terbaru</Text>
+          <Text style={styles.textHargaTerbaru}>Harga terbaru</Text>
         )}
-        <CardItemPost
-          image={item.image}
-          title={item.title}
-          desc={item.meta_description}
+        <CardItemHargaUdang
           data={item}
+          supplierName={item.creator.name}
+          verified={item.creator.buyer ? true : false}
           date={item.updated_at}
-          id={item.id}
-          onPress={() => onPressDetailKabarUdang(item)}
+          avatarId={item.creator.avatar}
+          regencyName={item.region.regency_name}
+          provinceName={item.region.province_name}
+          size={50}
+          onPressDetail={() => goToDetail(item)}
         />
       </View>
     );
-  };
-
-  const onPressDetailKabarUdang = data => {
-    let shareUrl = 'https://app.jala.tech/posts/' + data.id;
-    let urlWebview = 'https://app.jala.tech/web_view/posts/' + data.id;
-    navigation.navigate('GeneralWebview', {
-      data: data,
-      urlWebview: urlWebview,
-      shareUrl: shareUrl,
-      title: 'Kabar Udang',
-    });
   };
 
   const handleLoadMore = () => {
@@ -147,17 +141,16 @@ const TabKabarUdang = ({navigation}) => {
     />
   );
 };
-export default TabKabarUdang;
+export default PriceTab;
 
 const styles = StyleSheet.create({
-  textKabarTerbaru: {
+  textHargaTerbaru: {
     color: '#1971d4',
     fontSize: 18,
-    textAlign: 'left',
+    textAlign: 'center',
     marginTop: 10,
     fontWeight: '600',
     marginBottom: -8,
-    marginHorizontal: 16,
   },
   containerItemFooter: isFetching => [
     {

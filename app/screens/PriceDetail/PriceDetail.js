@@ -12,7 +12,7 @@ import {
   uppercaseEachText,
 } from '../../utils/common';
 
-const DetailHargaUdang = ({route, navigation}) => {
+const PriceDetail = ({route, navigation}) => {
   console.log('route.params.data', route.params.data);
   let data = route.params.data;
 
@@ -197,9 +197,7 @@ const DetailHargaUdang = ({route, navigation}) => {
           {renderDaftarHarga()}
           <View style={styles.containerNotes}>
             <Text style={styles.textTitleNotes}>Catatan</Text>
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipscing elit ut liquam
-            </Text>
+            <Text>{data.remark ? data.remark : "-"}</Text>
           </View>
         </View>
       </ScrollView>
@@ -207,7 +205,7 @@ const DetailHargaUdang = ({route, navigation}) => {
   );
 };
 
-export default DetailHargaUdang;
+export default PriceDetail;
 
 const styles = StyleSheet.create({
   textProvince: {

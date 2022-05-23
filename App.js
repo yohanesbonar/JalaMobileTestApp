@@ -2,8 +2,8 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import JalaMedia from './app/screens/JalaMedia/JalaMedia';
-import DetailHargaUdang from './app/screens/DetailHargaUdang/DetailHargaUdang';
 import GeneralWebview from './app/screens/GeneralWebview/GeneralWebview';
+import PriceDetail from './app/screens/PriceDetail/PriceDetail';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -15,12 +15,12 @@ const App = () => {
           component={JalaMedia}
           options={{headerShown: false}}
         />
-          <Stack.Screen
-          name="DetailHargaUdang"
-          component={DetailHargaUdang}
+        <Stack.Screen
+          name="PriceDetail"
+          component={PriceDetail}
           options={{headerShown: false}}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="GeneralWebview"
           component={GeneralWebview}
           options={{headerShown: false}}

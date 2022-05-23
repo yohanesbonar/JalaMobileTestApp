@@ -1,6 +1,6 @@
 import {API_CALL} from '../requestHelper';
 
-export const getPenyakit = async (limit, page) => {
+export const getListDisease = async (limit, page) => {
     try {
       const option = {
         method: 'get',

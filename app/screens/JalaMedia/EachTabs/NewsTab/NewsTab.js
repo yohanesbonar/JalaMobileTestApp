@@ -1,11 +1,11 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, {Fragment, useEffect, useState} from 'react';
-import {FlatList, Text, StyleSheet} from 'react-native';
-import CardItemHargaUdang from '../../../../components/molecules/CardItemHargaUdang';
-import {getHargaUdang} from '../../../../utils/network/HargaUdang';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Text, StyleSheet, Image} from 'react-native';
 import _ from 'lodash';
+import CardItemPost from '../../../../components/molecules/CardItemPost';
+import { getListNews } from '../../../../utils/network/News';
 
-const TabHargaUdang = ({navigation}) => {
+const NewsTab = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isEmptyData, setIsEmptyData] = useState(false);
@@ -23,7 +23,7 @@ const TabHargaUdang = ({navigation}) => {
     setIsRefresh(false);
     setIsFailed(false);
     try {
-      let response = await getHargaUdang(limit, page);
+      let response = await getListNews(limit, page);
       console.log('response', response);
       let result = response.data;
       if (response) {
@@ -47,34 +47,38 @@ const TabHargaUdang = ({navigation}) => {
         title: 'Something went wrong!!' + error,
         duration: 1500,
       });
-      console.log('Error getHargaUdang', error);
+      console.log('Error getListNews', error);
     }
   };
 
-  const goToDetail = item => {
-    navigation.navigate('DetailHargaUdang', {data: item});
-  };
   const _renderItem = ({item, index}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textHargaTerbaru}>Harga terbaru</Text>
+          <Text style={styles.textKabarTerbaru}>Kabar terbaru</Text>
         )}
-        <CardItemHargaUdang
+        <CardItemPost
+          image={item.image}
+          title={item.title}
+          desc={item.meta_description}
           data={item}
-          supplierName={
-            item.creator.name
-          }
-          verified={item.creator.buyer ? true : false}
           date={item.updated_at}
-          avatarId={item.creator.avatar}
-          regencyName={item.region.regency_name}
-          provinceName={item.region.province_name}
-          size={50}
-          onPressDetail={() => goToDetail(item)}
+          id={item.id}
+          onPress={() => onPressDetailKabarUdang(item)}
         />
       </View>
     );
+  };
+
+  const onPressDetailKabarUdang = data => {
+    let shareUrl = 'https://app.jala.tech/posts/' + data.id;
+    let urlWebview = 'https://app.jala.tech/web_view/posts/' + data.id;
+    navigation.navigate('GeneralWebview', {
+      data: data,
+      urlWebview: urlWebview,
+      shareUrl: shareUrl,
+      title: 'Kabar Udang',
+    });
   };
 
   const handleLoadMore = () => {
@@ -121,7 +125,7 @@ const TabHargaUdang = ({navigation}) => {
     setIsFetching(false);
     setIsEmptyData(false);
     setIsRefresh(true);
-  }
+  };
 
   useEffect(() => {
     if (isRefresh == true) {
@@ -143,16 +147,17 @@ const TabHargaUdang = ({navigation}) => {
     />
   );
 };
-export default TabHargaUdang;
+export default NewsTab;
 
 const styles = StyleSheet.create({
-  textHargaTerbaru: {
+  textKabarTerbaru: {
     color: '#1971d4',
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
     marginTop: 10,
     fontWeight: '600',
     marginBottom: -8,
+    marginHorizontal: 16,
   },
   containerItemFooter: isFetching => [
     {

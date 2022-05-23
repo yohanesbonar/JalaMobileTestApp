@@ -1,7 +1,7 @@
 import {API_CALL} from '../requestHelper';
 
 
-export const getKabarUdang = async (limit, page) => {
+export const getListNews = async (limit, page) => {
   try {
     const option = {
       method: 'get',

@@ -1,11 +1,11 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, { useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Text, StyleSheet} from 'react-native';
-import {getPenyakit} from '../../../../utils/network/Penyakit';
+import {getListDisease} from '../../../../utils/network/Disease';
 import _ from 'lodash';
 import CardItemPost from '../../../../components/molecules/CardItemPost';
 
-const TabPenyakit = ({navigation}) => {
+const DiseaseTab = ({navigation}) => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [isEmptyData, setIsEmptyData] = useState(false);
@@ -23,7 +23,7 @@ const TabPenyakit = ({navigation}) => {
     setIsRefresh(false);
     setIsFailed(false);
     try {
-      let response = await getPenyakit(limit, page);
+      let response = await getListDisease(limit, page);
       console.log('response', response);
       let result = response.data;
       if (response) {
@@ -47,7 +47,7 @@ const TabPenyakit = ({navigation}) => {
         title: 'Something went wrong!!' + error,
         duration: 1500,
       });
-      console.log('Error getHargaUdang', error);
+      console.log('Error getListDisease', error);
     }
   };
 
@@ -147,7 +147,7 @@ const TabPenyakit = ({navigation}) => {
     />
   );
 };
-export default TabPenyakit;
+export default DiseaseTab;
 
 const styles = StyleSheet.create({
   textPenyakitTerbaru: {
