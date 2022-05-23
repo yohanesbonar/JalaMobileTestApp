@@ -9,7 +9,7 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import {getListPrice} from '../../../../utils/network/Price';
+import {getListPrice, getListRegion} from '../../../../utils/network/Price';
 import _ from 'lodash';
 import CardItemPrice from '../../../../components/molecules/CardItemPrice';
 import {Modalize} from 'react-native-modalize';
@@ -26,6 +26,10 @@ const PriceTab = ({navigation}) => {
 
   const [size, setSize] = useState(100);
   const [typeBS, setTypeBS] = useState('');
+
+  const [region, setRegion] = useState(null);
+  const [searchValueRegion, setSearchValueRegion] = useState('');
+  const [listRegion, setListRegion] = useState([]);
 
   useEffect(() => {
     getData();
@@ -157,36 +161,30 @@ const PriceTab = ({navigation}) => {
             <Text style={styles.textValueSize}>{size}</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.containerButtonFilterAddress}>
+        <TouchableOpacity
+          style={styles.containerButtonFilterAddress}
+          onPress={() => onPressFilterRegion()}>
           <Image
             source={require('../../../../assets/images/ic-location-white.png')}
             style={styles.iconLocationWhite}
             resizeMode="contain"
           />
-          <Text style={styles.textDescCountry}>Indonesia</Text>
+          <Text
+            style={styles.textDescCountry}
+            numberOfLines={1}
+            ellipsizeMode="tail">
+            {region != null ? region.full_name : 'Find Location'}
+          </Text>
         </TouchableOpacity>
       </View>
     );
   };
 
+  /////////////////////////     FILTER-SIZE
+
   const onPressFilterSize = () => {
     openModalize();
     setTypeBS('BSFilterSize');
-  };
-
-  const modalizeRef = React.createRef(null);
-
-  const openModalize = () => {
-    modalizeRef.current?.open();
-  };
-
-  const closeModalize = () => {
-    modalizeRef.current?.close();
-  };
-
-  const setValueSize = value => {
-    closeModalize();
-    setSize(value);
   };
 
   const renderCompBSFilterSize = () => {
@@ -210,6 +208,23 @@ const PriceTab = ({navigation}) => {
     );
   };
 
+  /////////////////////////     BOTTOMSHEET
+
+  const modalizeRef = React.createRef(null);
+
+  const openModalize = () => {
+    modalizeRef.current?.open();
+  };
+
+  const closeModalize = () => {
+    modalizeRef.current?.close();
+  };
+
+  const setValueSize = value => {
+    closeModalize();
+    setSize(value);
+  };
+
   const renderBottomSheet = () => {
     return (
       <Modalize
@@ -226,7 +241,9 @@ const PriceTab = ({navigation}) => {
         HeaderComponent={
           <View>
             <View style={styles.containerHeaderBS}>
-              <Text style={styles.textLeftHeaderBS}>Size</Text>
+              <Text style={styles.textLeftHeaderBS}>
+                {typeBS == 'BSFilterSize' ? 'Size' : 'Kota/kabupaten'}
+              </Text>
               <TouchableOpacity onPress={() => closeModalize()}>
                 <Text style={styles.textRightHeaderBS}>Tutup</Text>
               </TouchableOpacity>
@@ -235,10 +252,57 @@ const PriceTab = ({navigation}) => {
           </View>
         }>
         <View>
-          {typeBS == 'BSFilterSize' ? renderCompBSFilterSize() : null}
+          {typeBS == 'BSFilterSize'
+            ? renderCompBSFilterSize()
+            : renderCompBSFilterRegion()}
         </View>
       </Modalize>
     );
+  };
+
+  /////////////////////////     FILTER-REGION
+
+  const onPressFilterRegion = () => {
+    openModalize();
+    setTypeBS('BSFilterRegion');
+    getDataListRegion();
+  };
+
+  const getDataListRegion = async () => {
+    try {
+      let responseRegion = await getListRegion(1, searchValueRegion);
+      if (responseRegion.data) {
+        let result = responseRegion.data;
+        setListRegion(result);
+      }
+      console.log('responseRegion', responseRegion);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  const renderCompBSFilterRegion = () => {
+    return (
+      <ScrollView style={styles.containerScrollViewBSFilterSize}>
+        {listRegion.map((value, index) => {
+          let nameAddress = value.full_name + ', ' + value.country_name;
+          return (
+            <TouchableOpacity
+              key={index}
+              style={{paddingVertical: 12}}
+              onPress={() => setDataRegion(value)}>
+              <Text style={styles.textEachSize}>{nameAddress}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
+    );
+  };
+
+  const setDataRegion = item => {
+    console.log('data region', item);
+    setRegion(item);
+    closeModalize();
   };
 
   return (
@@ -326,6 +390,7 @@ const styles = StyleSheet.create({
     lineHeight: 24,
     letterSpacing: 0.5,
     marginLeft: 6,
+    width: 120,
   },
   bottomSheetHeader: {
     height: 4,
