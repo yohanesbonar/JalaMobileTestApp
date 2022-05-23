@@ -1,5 +1,5 @@
 import {NativeBaseProvider} from 'native-base';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,6 +7,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Text,
+  BackHandler,
 } from 'react-native';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import PriceTab from './EachTabs/PriceTab/PriceTab';
@@ -14,9 +15,19 @@ import NewsTab from './EachTabs/NewsTab/NewsTab';
 import DiseaseTab from './EachTabs/DiseaseTab/DiseaseTab';
 
 const JalaMedia = ({navigation}) => {
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", handleBackButton);
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", handleBackButton);
+    };
+  }, []);
+
+  const handleBackButton = () => {
+    BackHandler.exitApp();
+  };
   return (
     <NativeBaseProvider>
-      <HeaderToolbar title={'Jala Media'} onPressBack={() => console.log()} />
+      <HeaderToolbar title={'Jala Media'} onPressBack={() => handleBackButton()} />
       <TabsCustom
         tabs={[
           {
