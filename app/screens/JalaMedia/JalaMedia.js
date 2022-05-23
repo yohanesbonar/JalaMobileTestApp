@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   mainViewTabsCustom: {flex: 1, backgroundColor: '#FFF'},
   containerMapTabs: {
     flexDirection: 'row',
-    height: 64,
+    height: 52,
     justifyContent: 'space-between',
     backgroundColor: 'transparent',
   },
