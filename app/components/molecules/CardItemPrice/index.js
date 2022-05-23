@@ -84,7 +84,8 @@ export default CardItemPrice;
 const styles = StyleSheet.create({
   mainCardContainer: {
     marginTop: 16,
-    padding: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 12,
     borderRadius: 4,
     backgroundColor: '#FFFFFF',
     borderColor: '#E5E5E5',
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   textVerified: verified => [
     {textAlign: 'right', color: verified ? '#575755' : '#575755'},
   ],
-  avatarStyle: {width: 38, height: 38, borderRadius: 20, alignSelf: 'center'},
+  avatarStyle: {width: 32, height: 32, borderRadius: 20, alignSelf: 'center'},
   dateText: {
     color: '#859ED1',
     fontSize: 12,
@@ -131,7 +132,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
     letterSpacing: 0.14,
-    fontWeight: '400',
     marginTop: 4,
   },
   textRegency: {

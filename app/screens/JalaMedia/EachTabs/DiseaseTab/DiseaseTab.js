@@ -151,11 +151,13 @@ export default DiseaseTab;
 
 const styles = StyleSheet.create({
   textPenyakitTerbaru: {
-    color: '#1971d4',
+    color: '#004492',
     fontSize: 18,
     textAlign: 'left',
     marginTop: 10,
-    fontWeight: '600',
+    fontFamily: 'Lato-Bold',
+    lineHeight: 25,
+    letterSpacing: 0.5,
     marginBottom: -8,
     marginHorizontal: 16,
   },

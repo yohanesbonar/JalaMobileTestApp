@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from 'react-native';
 
 const HeaderToolbar = ({
@@ -17,7 +18,7 @@ const HeaderToolbar = ({
   typeRightButton,
 }) => {
   return (
-    <SafeAreaView style={{backgroundColor: '#1b77df', zIndex: 1}}>
+    <SafeAreaView style={{backgroundColor: '#1B77DF', zIndex: 1}}>
       <View
         style={styles.containerLeftSide(
           onPressBack,
@@ -36,7 +37,11 @@ const HeaderToolbar = ({
             onPress={onPressButtonRight}
             style={{right: 0, alignContent: 'flex-end'}}>
             {typeRightButton == 'share' ? (
-              <ShareIcon style={styles.containerButtonRight} />
+              <Image
+                source={require('../../../assets/images/ic-share-white.png')}
+                resizeMode="contain"
+                style={styles.containerButtonRight}
+              />
             ) : (
               <Text style={styles.buttonRight}>{titleButtonRight}</Text>
             )}
@@ -89,9 +94,8 @@ const styles = StyleSheet.create({
     },
   ],
   containerButtonRight: {
-    height: 28,
-    width: 28,
-    color: '#FFF',
+    height: 19.92,
+    width: 18,
     marginRight: 16,
     paddingHorizontal: 16,
     paddingVertical: 5,

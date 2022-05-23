@@ -1,6 +1,6 @@
 import {NativeBaseProvider} from 'native-base';
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import {shareLink} from '../../utils/common';
 import {WebView} from 'react-native-webview';

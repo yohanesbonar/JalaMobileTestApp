@@ -1,4 +1,3 @@
-import {ShareIcon} from 'native-base';
 import React from 'react';
 import {
   SafeAreaView,
@@ -29,7 +28,11 @@ const CardItemPost = ({image, title, desc, data, date, id, onPress}) => {
         <View style={styles.containerDateAndShare}>
           <Text style={styles.textDate}>{formatDate(date)}</Text>
           <TouchableOpacity onPress={() => onPressButtonShare()}>
-            <ShareIcon style={styles.shareIcon} />
+            <Image
+              source={require('../../../assets/images/ic-share.png')}
+              resizeMode="contain"
+              style={styles.shareIcon}
+            />
           </TouchableOpacity>
         </View>
       </View>
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
-    borderColor: '#ececec',
+    borderColor: '#E5E5E5',
     borderWidth: 1,
     elevation: 2,
     shadowColor: '#000000',
@@ -64,20 +67,26 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 8,
   },
   textTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: 18,
+    lineHeight: 24,
+    letterSpacing: 0.7,
+    fontFamily: 'Lato-Black',
     marginBottom: 6,
     color: '#454646',
   },
   textDesc: {
     fontSize: 14,
-    color: '#767676',
+    lineHeight: 20,
+    fontFamily: 'Lato-Regular',
+    color: '#737373',
   },
   textDate: {
     fontSize: 14,
-    color: '#767676',
+    lineHeight: 20,
+    fontFamily: 'Lato-Regular',
+    color: '#737373',
   },
-  shareIcon: {height: 28, width: 28, color: '#000'},
+  shareIcon: {height: 19.92, width: 18, color: '#000'},
   containerDateAndShare: {
     marginTop: 10,
     flexDirection: 'row',
