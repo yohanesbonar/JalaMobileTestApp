@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Regular',
     color: '#737373',
   },
-  shareIcon: {height: 19.92, width: 18, color: '#000'},
+  shareIcon: {height: 19.92, width: 18},
   containerDateAndShare: {
     marginTop: 10,
     flexDirection: 'row',
