@@ -252,7 +252,11 @@ const PriceTab = ({navigation}) => {
                   : 'Filter'}
               </Text>
               <TouchableOpacity onPress={() => closeModalize()}>
-                <Text style={styles.textRightHeaderBS}>Tutup</Text>
+                <Text style={styles.textRightHeaderBS}>
+                  {typeBS == 'BSFilterSize' || typeBS == 'BSFilterRegion'
+                    ? 'Tutup'
+                    : 'Batal'}
+                </Text>
               </TouchableOpacity>
             </View>
             {typeBS == 'BSFilterRegion' && (
@@ -301,7 +305,7 @@ const PriceTab = ({navigation}) => {
   const onPressFilterSize = () => {
     openModalize();
     setTypeBS('BSFilterSize');
-    // setTypeBS('BSFilterDate'); -> open the comments and comments `setTypeBS('BSFilterSize');` if you want to show UI of the bottomsheet date filter
+    // setTypeBS('BSFilterDate'); // -> open the comments and comments `setTypeBS('BSFilterSize');` if you want to show UI of the bottomsheet date filter
   };
 
   const renderCompBSFilterSize = () => {
