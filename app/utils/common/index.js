@@ -152,3 +152,25 @@ export const useDebouncedEffect = (callback, delay, deps = []) => {
     };
   }, [delay, ...deps]);
 };
+
+export const capitalizeFirstLetter = string => {
+  string = string.toLowerCase();
+  let result = string.charAt(0).toUpperCase() + string.slice(1);
+  return result;
+};
+
+export const capitalizeFirstLetterListAddressWithSpace = string => {
+  let array = string.split(' ');
+  for (let i = 0; i < array.length; i++) {
+    array[i] = capitalizeFirstLetter(array[i].toString());
+  }
+  return array.join(' ');
+};
+
+export const capitalizeFirstLetterListAddress = string => {
+  let array = string.split(', ');
+  for (let i = 0; i < array.length; i++) {
+    array[i] = capitalizeFirstLetterListAddressWithSpace(array[i].toString());
+  }
+  return array.join(', ');
+};

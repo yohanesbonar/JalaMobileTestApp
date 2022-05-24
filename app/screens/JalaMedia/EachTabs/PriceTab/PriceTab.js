@@ -14,7 +14,10 @@ import {getListPrice, getListRegion} from '../../../../utils/network/Price';
 import _ from 'lodash';
 import CardItemPrice from '../../../../components/molecules/CardItemPrice';
 import {Modalize} from 'react-native-modalize';
-import {useDebouncedEffect} from '../../../../utils/common';
+import {
+  capitalizeFirstLetterListAddress,
+  useDebouncedEffect,
+} from '../../../../utils/common';
 import ButtonPositiveNegative from '../../../../components/atoms/ButtonPositiveNegative';
 
 const PriceTab = ({navigation}) => {
@@ -405,7 +408,10 @@ const PriceTab = ({navigation}) => {
   };
 
   const renderItemRegion = ({item, index}) => {
-    let nameAddress = item.full_name + ', ' + item.country_name;
+    let nameAddress =
+      capitalizeFirstLetterListAddress(item.full_name) +
+      ', ' +
+      item.country_name;
     return (
       <TouchableOpacity
         key={index}
