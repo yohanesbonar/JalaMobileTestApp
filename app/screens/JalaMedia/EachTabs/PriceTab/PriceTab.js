@@ -1,5 +1,5 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, { useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   Text,
@@ -15,6 +15,7 @@ import _ from 'lodash';
 import CardItemPrice from '../../../../components/molecules/CardItemPrice';
 import {Modalize} from 'react-native-modalize';
 import {useDebouncedEffect} from '../../../../utils/common';
+import ButtonPositiveNegative from '../../../../components/atoms/ButtonPositiveNegative';
 
 const PriceTab = ({navigation}) => {
   const [page, setPage] = useState(1);
@@ -244,10 +245,13 @@ const PriceTab = ({navigation}) => {
           <View>
             <View style={styles.containerHeaderBS}>
               <Text style={styles.textLeftHeaderBS}>
-                {typeBS == 'BSFilterSize' ? 'Size' : 'Kota/kabupaten'}
+                {typeBS == 'BSFilterSize'
+                  ? 'Size'
+                  : typeBS == 'BSFilterRegion'
+                  ? 'Kota/kabupaten'
+                  : 'Filter'}
               </Text>
-              <TouchableOpacity
-                onPress={() => closeModalize()}>
+              <TouchableOpacity onPress={() => closeModalize()}>
                 <Text style={styles.textRightHeaderBS}>Tutup</Text>
               </TouchableOpacity>
             </View>
@@ -284,18 +288,20 @@ const PriceTab = ({navigation}) => {
         <View>
           {typeBS == 'BSFilterSize'
             ? renderCompBSFilterSize()
-            : renderCompBSFilterRegion()}
+            : typeBS == 'BSFilterRegion'
+            ? renderCompBSFilterRegion()
+            : renderCompBSFilterDate()}
         </View>
       </Modalize>
     );
   };
-
 
   /////////////////////////     FILTER-SIZE
 
   const onPressFilterSize = () => {
     openModalize();
     setTypeBS('BSFilterSize');
+    // setTypeBS('BSFilterDate'); -> open the comments and comments `setTypeBS('BSFilterSize');` if you want to show UI of the bottomsheet date filter
   };
 
   const renderCompBSFilterSize = () => {
@@ -361,7 +367,11 @@ const PriceTab = ({navigation}) => {
     setIsRefreshRegion(false);
     setIsFailedRegion(false);
     try {
-      let responseRegion = await getListRegion(limitRegion,pageRegion, searchValueRegion);
+      let responseRegion = await getListRegion(
+        limitRegion,
+        pageRegion,
+        searchValueRegion,
+      );
       if (responseRegion.data) {
         let result = responseRegion.data;
         setIsEmptyDataRegion(_.isEmpty(result) ? true : false);
@@ -468,6 +478,37 @@ const PriceTab = ({navigation}) => {
       setSelectedRegion(null);
     }
     closeModalize();
+  };
+
+  /////////////////////////     FILTER-DATE - not used anywhere, just display
+
+  const renderCompBSFilterDate = () => {
+    return (
+      <View style={{paddingHorizontal: 16, paddingTop: 10}}>
+        <Text style={styles.textDateUntil}>Sampai Tanggal</Text>
+        <TouchableOpacity style={styles.buttonDate}>
+          <Text style={styles.textDateLeft}>14 Januari 2020</Text>
+          <Image
+            source={require('../../../../assets/images/ic-calendar.png')}
+            style={styles.iconCalendar}
+            resizeMode="cover"
+          />
+        </TouchableOpacity>
+        <View style={styles.containerButtons}>
+          <ButtonPositiveNegative
+            title={'Reset'}
+            onPress={() => console.log('onPress Button Reset')}
+            type={'negative'}
+          />
+          <View style={styles.emptyView} />
+          <ButtonPositiveNegative
+            title={'Terapkan'}
+            onPress={() => console.log('onPress Button Terapkan')}
+            type={'positive'}
+          />
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -655,4 +696,34 @@ const styles = StyleSheet.create({
   containerTouchableButtonClose: {
     alignSelf: 'center',
   },
+  textDateUntil: {
+    fontFamily: 'Lato-Regular',
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: 'left',
+    color: '#454646',
+  },
+  buttonDate: {
+    marginTop: 4,
+    flexDirection: 'row',
+    paddingLeft: 8,
+    paddingRight: 10,
+    paddingVertical: 10,
+    backgroundColor: '#F5F6F7',
+    borderRadius: 5,
+    justifyContent: 'space-between',
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+  },
+  textDateLeft: {
+    fontFamily: 'Lato-Regular',
+    fontSize: 14,
+    lineHeight: 20,
+    textAlign: 'left',
+    color: '#454646',
+  },
+  iconCalendar: {width: 18, height: 20, marginLeft: 7, alignSelf: 'center'},
+  containerButtons: {marginTop: 24, marginBottom: 24, flexDirection: 'row'},
+
+  emptyView: {paddingHorizontal: 8},
 });
