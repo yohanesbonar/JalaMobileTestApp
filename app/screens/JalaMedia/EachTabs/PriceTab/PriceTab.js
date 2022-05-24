@@ -210,34 +210,6 @@ const PriceTab = ({navigation}) => {
     );
   };
 
-  /////////////////////////     FILTER-SIZE
-
-  const onPressFilterSize = () => {
-    openModalize();
-    setTypeBS('BSFilterSize');
-  };
-
-  const renderCompBSFilterSize = () => {
-    let array = [
-      20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
-      180, 190, 200,
-    ];
-    return (
-      <ScrollView style={styles.containerScrollViewBSFilterSize}>
-        {array.map((value, index) => {
-          return (
-            <TouchableOpacity
-              key={index}
-              style={{paddingVertical: 12}}
-              onPress={() => setValueSize(value)}>
-              <Text style={styles.textEachSize}>{value}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-    );
-  };
-
   /////////////////////////     BOTTOMSHEET
 
   const modalizeRef = React.createRef(null);
@@ -315,6 +287,35 @@ const PriceTab = ({navigation}) => {
             : renderCompBSFilterRegion()}
         </View>
       </Modalize>
+    );
+  };
+
+
+  /////////////////////////     FILTER-SIZE
+
+  const onPressFilterSize = () => {
+    openModalize();
+    setTypeBS('BSFilterSize');
+  };
+
+  const renderCompBSFilterSize = () => {
+    let array = [
+      20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170,
+      180, 190, 200,
+    ];
+    return (
+      <ScrollView style={styles.containerScrollViewBSFilterSize}>
+        {array.map((value, index) => {
+          return (
+            <TouchableOpacity
+              key={index}
+              style={{paddingVertical: 12}}
+              onPress={() => setValueSize(value)}>
+              <Text style={styles.textEachSize}>{value}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </ScrollView>
     );
   };
 
