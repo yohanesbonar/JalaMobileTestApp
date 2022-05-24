@@ -55,7 +55,7 @@ const DiseaseTab = ({navigation}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textNewestDisease}>Penyakit terbaru</Text>
+          <Text style={styles.textDiseaseList}>Daftar Penyakit</Text>
         )}
         <CardItemPost
           image={item.image}
@@ -150,7 +150,7 @@ const DiseaseTab = ({navigation}) => {
 export default DiseaseTab;
 
 const styles = StyleSheet.create({
-  textNewestDisease: {
+  textDiseaseList: {
     color: '#004492',
     fontSize: 18,
     textAlign: 'left',
