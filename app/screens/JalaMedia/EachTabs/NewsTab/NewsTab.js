@@ -55,7 +55,7 @@ const NewsTab = ({navigation}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textKabarTerbaru}>Kabar terbaru</Text>
+          <Text style={styles.textNewestNews}>Kabar terbaru</Text>
         )}
         <CardItemPost
           image={item.image}
@@ -64,13 +64,13 @@ const NewsTab = ({navigation}) => {
           data={item}
           date={item.updated_at}
           id={item.id}
-          onPress={() => onPressDetailKabarUdang(item)}
+          onPress={() => onPressNewsDetail(item)}
         />
       </View>
     );
   };
 
-  const onPressDetailKabarUdang = data => {
+  const onPressNewsDetail = data => {
     let shareUrl = 'https://app.jala.tech/posts/' + data.id;
     let urlWebview = 'https://app.jala.tech/web_view/posts/' + data.id;
     navigation.navigate('GeneralWebview', {
@@ -150,7 +150,7 @@ const NewsTab = ({navigation}) => {
 export default NewsTab;
 
 const styles = StyleSheet.create({
-  textKabarTerbaru: {
+  textNewestNews: {
     color: '#004492',
     fontSize: 18,
     textAlign: 'left',

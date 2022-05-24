@@ -16,7 +16,7 @@ const PriceDetail = ({route, navigation}) => {
   console.log('route.params.data', route.params.data);
   let data = route.params.data;
 
-  const onPressHubungi = number => {
+  const onPressContact = number => {
     phoneCallWihtNumber(number);
   };
 
@@ -25,10 +25,10 @@ const PriceDetail = ({route, navigation}) => {
     shareLink(url);
   };
 
-  const renderDaftarHarga = () => {
+  const renderPriceList = () => {
     return (
       <View>
-        <Text style={styles.textDaftarHarga}>Daftar Harga</Text>
+        <Text style={styles.textPriceList}>Daftar Harga</Text>
         <View style={styles.eachPrice}>
           <Text style={styles.textSize}>Size 20</Text>
           <Text style={styles.textMoney}>
@@ -184,17 +184,17 @@ const PriceDetail = ({route, navigation}) => {
           </View>
           <View style={{flexDirection: 'row'}}>
             <View style={{flex: 1}}>
-              <Text style={styles.textKontak}>Kontak</Text>
-              <Text style={styles.textNoHP}>{data.creator.phone}</Text>
+              <Text style={styles.textContact}>Kontak</Text>
+              <Text style={styles.textPhoneNumber}>{data.creator.phone}</Text>
             </View>
-            <View style={styles.containerButtonHubungi}>
+            <View style={styles.containerContactButton}>
               <Button
                 title={'Hubungi'}
-                onPress={() => onPressHubungi(data.creator.phone)}
+                onPress={() => onPressContact(data.creator.phone)}
               />
             </View>
           </View>
-          {renderDaftarHarga()}
+          {renderPriceList()}
           <View style={styles.containerNotes}>
             <Text style={styles.textTitleNotes}>Catatan</Text>
             <Text style={styles.textNotes}>{data.remark ? data.remark : '-'}</Text>
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
     fontFamily: 'Lato-Bold',
   },
-  textKontak: {
+  textContact: {
     color: '#A09E9E',
     fontSize: 12,
     lineHeight: 16,
     fontFamily: 'Lato-Regular',
     marginTop: 10,
   },
-  textNoHP: {
+  textPhoneNumber: {
     color: '#454646',
     fontSize: 16,
     lineHeight: 24,
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato-Bold',
     marginTop: 4,
   },
-  textDaftarHarga: {
+  textPriceList: {
     color: '#363637',
     marginTop: 10,
     fontSize: 16,
@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
     fontFamily: "Lato-Bold",
     marginBottom: 4,
   },
-  containerButtonHubungi: {justifyContent: 'center', marginTop: 4},
+  containerContactButton: {justifyContent: 'center', marginTop: 4},
   textNotes: {
     color: '#454646',
     fontSize: 14,

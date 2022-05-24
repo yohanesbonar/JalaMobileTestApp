@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  TouchableOpacity,
   StyleSheet,
   Text,
   View,
@@ -9,9 +7,7 @@ import {
 } from 'react-native';
 import {
   formatDate,
-  formatIDR,
   getMoney,
-  getSize,
   uppercaseEachText,
 } from '../../../utils/common';
 import Button from '../../atoms/Button';
@@ -24,7 +20,6 @@ const CardItemPrice = ({
   provinceName,
   regencyName,
   size,
-  idr,
   avatarId,
   data,
   onPressDetail,
@@ -40,8 +35,6 @@ const CardItemPrice = ({
         <View style={{marginHorizontal: 16, flex: 1}}>
           <Text style={styles.textSupplier}>Supplier</Text>
           <Text
-            // ellipsizeMode="tail"
-            // numberOfLines={1}
             style={styles.textSupplierName}>
             {supplierName}
           </Text>

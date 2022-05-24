@@ -1,5 +1,5 @@
 import {View, Toast, Icon, Spinner} from 'native-base';
-import React, {Fragment, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {
   FlatList,
   Text,
@@ -8,12 +8,13 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TextInput,
 } from 'react-native';
 import {getListPrice, getListRegion} from '../../../../utils/network/Price';
 import _ from 'lodash';
 import CardItemPrice from '../../../../components/molecules/CardItemPrice';
 import {Modalize} from 'react-native-modalize';
-import {truncateSync} from 'graceful-fs';
+import {useDebouncedEffect} from '../../../../utils/common';
 
 const PriceTab = ({navigation}) => {
   const [page, setPage] = useState(1);
@@ -27,9 +28,15 @@ const PriceTab = ({navigation}) => {
   const [size, setSize] = useState(100);
   const [typeBS, setTypeBS] = useState('');
 
-  const [region, setRegion] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
   const [searchValueRegion, setSearchValueRegion] = useState('');
   const [listRegion, setListRegion] = useState([]);
+  const [pageRegion, setPageRegion] = useState(1);
+  const [isEmptyDataRegion, setIsEmptyDataRegion] = useState(false);
+  const [isRefreshRegion, setIsRefreshRegion] = useState(false);
+  const [isFetchingRegion, setIsFetchingRegion] = useState(false);
+  const [limitRegion, setLimitRegion] = useState(15);
+  const [isFailedRegion, setIsFailedRegion] = useState(false);
 
   useEffect(() => {
     getData();
@@ -40,7 +47,11 @@ const PriceTab = ({navigation}) => {
     setIsRefresh(false);
     setIsFailed(false);
     try {
-      let response = await getListPrice(limit, page);
+      let response = await getListPrice(
+        limit,
+        page,
+        selectedRegion != null ? selectedRegion.id : '',
+      );
       console.log('response', response);
       let result = response.data;
       if (response) {
@@ -75,7 +86,7 @@ const PriceTab = ({navigation}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textHargaTerbaru}>Harga terbaru</Text>
+          <Text style={styles.textNewestPrice}>Harga terbaru</Text>
         )}
         <CardItemPrice
           data={item}
@@ -145,6 +156,23 @@ const PriceTab = ({navigation}) => {
     }
   }, [isRefresh == true]);
 
+  const onRefreshListPrice = () => {
+    setData([]);
+    setPage(1);
+    setIsFetching(false);
+    setIsEmptyData(false);
+    setIsRefresh(true);
+  };
+
+  useDebouncedEffect(
+    () => {
+      console.log(' useDebouncedEffect valueSearch', searchValueRegion); // debounced 1sec
+      onRefreshListPrice();
+    },
+    1000,
+    [selectedRegion],
+  );
+
   const renderButtonFilterAddress = () => {
     return (
       <View style={styles.mainContainerButtonFilterAddress}>
@@ -173,7 +201,9 @@ const PriceTab = ({navigation}) => {
             style={styles.textDescCountry}
             numberOfLines={1}
             ellipsizeMode="tail">
-            {region != null ? region.full_name : 'Find Location'}
+            {selectedRegion != null
+              ? selectedRegion.full_name
+              : 'Find Location'}
           </Text>
         </TouchableOpacity>
       </View>
@@ -245,16 +275,37 @@ const PriceTab = ({navigation}) => {
                 {typeBS == 'BSFilterSize' ? 'Size' : 'Kota/kabupaten'}
               </Text>
               <TouchableOpacity
-                onPress={
-                  typeBS == 'BSFilterSize'
-                    ? () => closeModalize()
-                    : () => setRegion(null) + closeModalize()
-                }>
-                <Text style={styles.textRightHeaderBS}>
-                  {typeBS == 'BSFilterSize' ? 'Tutup' : 'Reset'}
-                </Text>
+                onPress={() => closeModalize()}>
+                <Text style={styles.textRightHeaderBS}>Tutup</Text>
               </TouchableOpacity>
             </View>
+            {typeBS == 'BSFilterRegion' && (
+              <View style={styles.containerOuterTextInput}>
+                <View style={styles.containerInnerTextInput}>
+                  <Image
+                    source={require('../../../../assets/images/ic-search.png')}
+                    style={styles.iconSearch}
+                    resizeMode="cover"
+                  />
+                  <TextInput
+                    style={styles.textinputStyle}
+                    placeholder="Cari"
+                    onChangeText={text => onChangeTextInput(text)}
+                    value={searchValueRegion}
+                  />
+                </View>
+                <TouchableOpacity
+                  style={styles.containerTouchableButtonClose}
+                  onPress={() => setSearchValueRegion('')}>
+                  <Image
+                    source={require('../../../../assets/images/ic-close.png')}
+                    style={styles.iconClose}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
+
             <View style={{backgroundColor: '#f1f5f9', height: 4}} />
           </View>
         }>
@@ -275,40 +326,146 @@ const PriceTab = ({navigation}) => {
     getDataListRegion();
   };
 
+  const onSearch = () => {
+    setListRegion([]);
+    setPageRegion(1);
+    setIsFetchingRegion(false);
+    setIsEmptyDataRegion(false);
+    setIsRefreshRegion(true);
+  };
+
+  const onChangeTextInput = text => {
+    console.log('onchange', text);
+    setSearchValueRegion(text);
+  };
+
+  useEffect(() => {
+    if (isRefreshRegion == true) {
+      setIsRefreshRegion(false);
+      getDataListRegion();
+    }
+  }, [isRefreshRegion == true]);
+
+  useDebouncedEffect(
+    () => {
+      console.log(' useDebouncedEffect searchValueRegion', searchValueRegion); // debounced 1sec
+      onSearch(searchValueRegion);
+    },
+    1000,
+    [searchValueRegion],
+  );
+
   const getDataListRegion = async () => {
+    setIsFetchingRegion(true);
+    setIsRefreshRegion(false);
+    setIsFailedRegion(false);
     try {
-      let responseRegion = await getListRegion(1, searchValueRegion);
+      let responseRegion = await getListRegion(limitRegion,pageRegion, searchValueRegion);
       if (responseRegion.data) {
         let result = responseRegion.data;
+        setIsEmptyDataRegion(_.isEmpty(result) ? true : false);
         setListRegion(result);
+        setListRegion(pageRegion == 1 ? result : [...listRegion, ...result]);
+        setPageRegion(pageRegion + 1);
+        setIsFailedRegion(false);
+        setIsFetchingRegion(false);
+      } else {
+        setIsFailedRegion(true);
+        setIsFetchingRegion(false);
+        Toast.show({
+          title: 'Something went wrong!!',
+          duration: 1500,
+        });
       }
       console.log('responseRegion', responseRegion);
     } catch (error) {
+      setIsFailedRegion(false);
+      setIsFetchingRegion(false);
+      Toast.show({
+        title: 'Something went wrong!!' + error,
+        duration: 1500,
+      });
       console.log('error', error);
+    }
+  };
+
+  const renderItemRegion = ({item, index}) => {
+    let nameAddress = item.full_name + ', ' + item.country_name;
+    return (
+      <TouchableOpacity
+        key={index}
+        style={{paddingVertical: 12}}
+        onPress={() => setDataRegion(item)}>
+        <Text
+          style={styles.textEachSizeRegion(
+            item.id,
+            selectedRegion != null ? selectedRegion.id : null,
+          )}>
+          {nameAddress}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  const handleLoadMoreRegion = () => {
+    if (isEmptyDataRegion == true || isFetchingRegion == true) {
+      return;
+    }
+    getDataListRegion();
+  };
+
+  const _renderItemFooterRegion = () => (
+    <View
+      style={[
+        styles.containerItemFooter(isFetchingRegion),
+        {width: isFetchingRegion == true ? '100%' : null},
+      ]}>
+      {_renderItemFooterLoaderRegion()}
+    </View>
+  );
+
+  const _renderItemFooterLoaderRegion = () => {
+    if (isFailedRegion == true && pageRegion > 1) {
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            handleLoadMoreRegion();
+          }}>
+          <Icon name="ios-sync" style={{fontSize: 42}} />
+        </TouchableOpacity>
+      );
+    }
+
+    if (isFetchingRegion == true) {
+      return (
+        <View style={{marginVertical: 16}}>
+          <Spinner color="indigo.500" size={'lg'} />
+        </View>
+      );
     }
   };
 
   const renderCompBSFilterRegion = () => {
     return (
-      <ScrollView style={styles.containerScrollViewBSFilterSize}>
-        {listRegion.map((value, index) => {
-          let nameAddress = value.full_name + ', ' + value.country_name;
-          return (
-            <TouchableOpacity
-              key={index}
-              style={{paddingVertical: 12}}
-              onPress={() => setDataRegion(value)}>
-              <Text style={styles.textEachSize}>{nameAddress}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
+      <FlatList
+        style={styles.containerFLBSFilterRegion}
+        data={listRegion}
+        renderItem={renderItemRegion}
+        keyExtractor={(item, index) => index.toString()}
+        onEndReachedThreshold={0.5}
+        onEndReached={handleLoadMoreRegion}
+        ListFooterComponent={_renderItemFooterRegion()}
+      />
     );
   };
 
   const setDataRegion = item => {
     console.log('data region', item);
-    setRegion(item);
+    if (selectedRegion == null || selectedRegion.id != item.id) {
+      setSelectedRegion(item);
+    } else {
+      setSelectedRegion(null);
+    }
     closeModalize();
   };
 
@@ -332,7 +489,7 @@ const PriceTab = ({navigation}) => {
 export default PriceTab;
 
 const styles = StyleSheet.create({
-  textHargaTerbaru: {
+  textNewestPrice: {
     color: '#004492',
     fontSize: 18,
     textAlign: 'center',
@@ -436,6 +593,22 @@ const styles = StyleSheet.create({
     flex: 1,
     maxHeight: Dimensions.get('screen').height - 210,
   },
+  containerFLBSFilterRegion: {
+    paddingHorizontal: 16,
+    flex: 1,
+    maxHeight: Dimensions.get('screen').height - 250,
+  },
+  textEachSizeRegion: (itemId, selectedId) => [
+    {
+      fontFamily:
+        selectedId != null && selectedId == itemId
+          ? 'Lato-Black'
+          : 'Lato-Regular',
+      color: '#454646',
+      fontSize: 14,
+      lineHeight: 20,
+    },
+  ],
   textEachSize: {
     fontFamily: 'Lato-Regular',
     color: '#454646',
@@ -444,4 +617,41 @@ const styles = StyleSheet.create({
   },
   iconScaleWhite: {width: 16.49, height: 18, padding: 8},
   iconLocationWhite: {width: 12.52, height: 18, padding: 8},
+  iconSearch: {
+    width: 17.5,
+    height: 17.5,
+    marginLeft: 11,
+    marginRight: 7.38,
+    alignSelf: 'center',
+  },
+  iconClose: {
+    width: 15,
+    height: 15,
+    marginLeft: 14.5,
+  },
+  textinputStyle: {
+    paddingLeft: 4,
+    fontFamily: 'Lato-Regular',
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#A09E9E',
+    paddingVertical: 6,
+    flex: 1,
+  },
+  containerOuterTextInput: {
+    paddingHorizontal: 16,
+    paddingBottom: 6,
+    flexDirection: 'row',
+  },
+  containerInnerTextInput: {
+    backgroundColor: '#F5F6F7',
+    flexDirection: 'row',
+    borderColor: '#E5E5E5',
+    borderWidth: 1,
+    borderRadius: 4,
+    flex: 1,
+  },
+  containerTouchableButtonClose: {
+    alignSelf: 'center',
+  },
 });

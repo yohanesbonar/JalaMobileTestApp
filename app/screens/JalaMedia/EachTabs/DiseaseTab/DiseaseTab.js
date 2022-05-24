@@ -55,7 +55,7 @@ const DiseaseTab = ({navigation}) => {
     return (
       <View>
         {index == 0 && (
-          <Text style={styles.textPenyakitTerbaru}>Penyakit terbaru</Text>
+          <Text style={styles.textNewestDisease}>Penyakit terbaru</Text>
         )}
         <CardItemPost
           image={item.image}
@@ -64,13 +64,13 @@ const DiseaseTab = ({navigation}) => {
           data={item}
           date={item.updated_at}
           id={item.id}
-          onPress={() => onPressDetailKabarUdang(item)}
+          onPress={() => onPressDiseaseDetail(item)}
         />
       </View>
     );
   };
 
-  const onPressDetailKabarUdang = data => {
+  const onPressDiseaseDetail = data => {
     let shareUrl = 'https://app.jala.tech/diseases/' + data.id;
     let urlWebview = 'https://app.jala.tech/web_view/diseases/' + data.id;
     navigation.navigate('GeneralWebview', {
@@ -150,7 +150,7 @@ const DiseaseTab = ({navigation}) => {
 export default DiseaseTab;
 
 const styles = StyleSheet.create({
-  textPenyakitTerbaru: {
+  textNewestDisease: {
     color: '#004492',
     fontSize: 18,
     textAlign: 'left',

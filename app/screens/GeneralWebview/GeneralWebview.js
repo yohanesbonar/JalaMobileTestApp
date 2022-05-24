@@ -1,16 +1,13 @@
 import {NativeBaseProvider} from 'native-base';
-import React, {useState} from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import React from 'react';
+import {StyleSheet} from 'react-native';
 import HeaderToolbar from '../../components/molecules/HeaderToolbar';
 import {shareLink} from '../../utils/common';
 import {WebView} from 'react-native-webview';
-import {
-  widthPercentageToDP as wp,
-} from 'react-native-responsive-screen';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 const GeneralWebview = ({route, navigation}) => {
   let params = route.params;
-  const [isShowLoader, setIsShowLoader] = useState(false);
 
   const onPressButtonRight = () => {
     let url = params.shareUrl;
@@ -30,12 +27,7 @@ const GeneralWebview = ({route, navigation}) => {
         javaScriptEnabled={true}
         onMessage={event => console.log('Received: ', event.nativeEvent.data)}
         source={{uri: params.urlWebview}}
-        style={{
-          flex: 1,
-          flexDirection: 'column',
-          width: wp('100%'),
-          backgroundColor: '#F3F3F3',
-        }}
+        style={styles.webviewStyle}
       />
     </NativeBaseProvider>
   );
@@ -43,4 +35,11 @@ const GeneralWebview = ({route, navigation}) => {
 
 export default GeneralWebview;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  webviewStyle: {
+    flex: 1,
+    flexDirection: 'column',
+    width: wp('100%'),
+    backgroundColor: '#F3F3F3',
+  },
+});

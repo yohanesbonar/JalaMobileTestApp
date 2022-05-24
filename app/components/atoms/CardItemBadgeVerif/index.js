@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
-  TouchableOpacity,
   StyleSheet,
   Text,
   View,
@@ -14,7 +12,7 @@ const CardItemBadgeVerif = ({verified}) => {
       {verified && (
         <Image
           source={require('../../../assets/images/ic-verify.png')}
-          style={{width: 15, height: 15, marginRight: 5}}
+          style={styles.iconVerify}
         />
       )}
 
@@ -34,10 +32,11 @@ const styles = StyleSheet.create({
   containerBadgeVerified: verified => [
     {
       backgroundColor: verified ? '#FFF8E7' : '#E5E5E5',
-      paddingHorizontal: 6,
-      paddingVertical: 5,
+      paddingHorizontal: verified ? 8 : 4,
+      paddingVertical: 3,
       borderRadius: 27.5,
       flexDirection: 'row',
     },
   ],
+  iconVerify: {width: 16, height: 16, marginRight: 3, alignSelf: 'center'},
 });

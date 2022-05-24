@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  SafeAreaView,
   TouchableOpacity,
   StyleSheet,
   Text,
@@ -22,7 +21,7 @@ const CardItemPost = ({image, title, desc, data, date, id, onPress}) => {
         resizeMode="cover"
         style={styles.containerImageCard}
       />
-      <View style={{padding: 16}}>
+      <View style={styles.containerBottomImage}>
         <Text style={styles.textTitle}>{title}</Text>
         <Text style={styles.textDesc}>{desc}</Text>
         <View style={styles.containerDateAndShare}>
@@ -93,4 +92,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  containerBottomImage: {padding: 16},
 });

@@ -1,4 +1,5 @@
 import {Linking, Share} from 'react-native';
+import {useRef, useEffect} from 'react';
 
 export const formatDate = date => {
   let temp = date.split(' ')[0].split('-').reverse(),
@@ -133,4 +134,21 @@ export const shareLink = async message => {
   } catch (error) {
     alert(error.message);
   }
+};
+
+export const useDebouncedEffect = (callback, delay, deps = []) => {
+  const firstUpdate = useRef(true);
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    const handler = setTimeout(() => {
+      callback();
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [delay, ...deps]);
 };

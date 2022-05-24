@@ -1,11 +1,8 @@
 import React from 'react';
 import {
-  SafeAreaView,
   TouchableOpacity,
   StyleSheet,
   Text,
-  View,
-  Image,
 } from 'react-native';
 
 const Button = ({size, title, onPress}) => {
