@@ -9,9 +9,11 @@ import {
 } from 'react-native';
 import {formatDate, shareLink} from '../../../utils/common';
 
-const CardItemPost = ({image, title, desc, data, date, id, onPress}) => {
+const CardItemPost = ({image, title, desc, data, date, id, onPress, type}) => {
   const onPressButtonShare = () => {
-    let url = 'https://app.jala.tech/posts/' + id;
+    let urlDiseases = 'https://app.jala.tech/diseases/' + id;
+    let urlNews = 'https://app.jala.tech/posts/' + id;
+    let url = type == 'news' ? urlNews : urlDiseases;
     shareLink(url);
   };
   return (

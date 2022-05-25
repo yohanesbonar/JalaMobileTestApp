@@ -65,6 +65,7 @@ const DiseaseTab = ({navigation}) => {
           date={item.updated_at}
           id={item.id}
           onPress={() => onPressDiseaseDetail(item)}
+          type={'diseases'}
         />
       </View>
     );

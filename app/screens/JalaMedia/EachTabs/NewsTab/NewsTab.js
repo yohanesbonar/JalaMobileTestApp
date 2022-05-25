@@ -65,6 +65,7 @@ const NewsTab = ({navigation}) => {
           date={item.updated_at}
           id={item.id}
           onPress={() => onPressNewsDetail(item)}
+          type={"news"}
         />
       </View>
     );
