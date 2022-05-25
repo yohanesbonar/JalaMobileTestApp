@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 
 const CardItemBadgeVerif = ({verified}) => {
   return (
@@ -32,7 +27,7 @@ const styles = StyleSheet.create({
   containerBadgeVerified: verified => [
     {
       backgroundColor: verified ? '#FFF8E7' : '#E5E5E5',
-      paddingHorizontal: verified ? 8 : 4,
+      paddingHorizontal: verified ? 4 : 8,
       paddingVertical: 3,
       borderRadius: 27.5,
       flexDirection: 'row',
