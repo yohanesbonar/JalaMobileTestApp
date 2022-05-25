@@ -205,7 +205,7 @@ const PriceTab = ({navigation}) => {
             numberOfLines={1}
             ellipsizeMode="tail">
             {selectedRegion != null
-              ? selectedRegion.full_name
+              ? selectedRegion.full_name_result
               : 'Find Location'}
           </Text>
         </TouchableOpacity>
@@ -400,6 +400,7 @@ const PriceTab = ({navigation}) => {
       capitalizeFirstLetterListAddress(item.full_name) +
       ', ' +
       item.country_name;
+    item.full_name_result = capitalizeFirstLetterListAddress(item.full_name);
     return (
       <TouchableOpacity
         key={index}
